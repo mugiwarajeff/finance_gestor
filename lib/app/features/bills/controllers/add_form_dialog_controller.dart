@@ -10,6 +10,8 @@ class AddFormDialogController {
   final TextEditingController _descriptionInputController =
       TextEditingController();
 
+  DateTime? _selectedDueDate;
+
   TextEditingController get nameInputController => _nameInputController;
 
   TextEditingController get valueInputController => _valueInputController;
@@ -21,8 +23,15 @@ class AddFormDialogController {
     Navigator.pop(context);
   }
 
-  Future<void> trigguerDatePicker(BuildContext context) async {
-    DateTime? data = await showDatePicker(
+  void confirmButtonFunction(BuildContext context) {
+    print(_nameInputController.text);
+    print(_valueInputController.text);
+    print(_dueDateInputController.text);
+    print(_descriptionInputController.text);
+  }
+
+  Future<void> getDatePicker(BuildContext context) async {
+    DateTime? dueDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1980),
@@ -39,10 +48,14 @@ class AddFormDialogController {
       ),
     );
 
-    if (data != null) {
-      print(data.toString());
-      _dueDateInputController.text = data.toString();
-      print(_dueDateInputController.text);
+    _setSelectedDate(dueDate);
+  }
+
+  void _setSelectedDate(DateTime? dueDate) {
+    if (dueDate != null) {
+      _selectedDueDate = dueDate;
+      _dueDateInputController.text =
+          "${dueDate.day}/${dueDate.month}/${dueDate.year}";
     }
   }
 }

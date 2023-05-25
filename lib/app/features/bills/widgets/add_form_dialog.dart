@@ -2,16 +2,11 @@ import 'package:finance_gestor/app/features/bills/controllers/add_form_dialog_co
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
 import 'package:flutter/material.dart';
 
-class AddFormDialog extends StatefulWidget {
+class AddFormDialog extends StatelessWidget {
   final AddFormDialogController addFormDialogController =
       AddFormDialogController();
   AddFormDialog({super.key});
 
-  @override
-  State<AddFormDialog> createState() => _AddFormDialogState();
-}
-
-class _AddFormDialogState extends State<AddFormDialog> {
   final String prinipalTitle = "Adding a bill";
 
   final double titleSize = 24;
@@ -20,6 +15,18 @@ class _AddFormDialogState extends State<AddFormDialog> {
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.of(context).size.height;
     final double dialogSize = screenSize * 0.7;
+
+    const String labelName = "Name";
+    const String hintName = "Insert the name of bill";
+    const String labelValue = "Value";
+    const String hintValue = "Inser the value of bill";
+    const String labelDate = "Due Date";
+    const String hintDate = "Insert the Due Date of Bill";
+    const String labelDescription = "Description";
+    const String hintDescription = "Insert a description of bill";
+
+    const String confirmText = "Confirm";
+    const String cancelText = "Cancel";
     return Dialog(
       child: SizedBox(
           height: dialogSize,
@@ -35,38 +42,41 @@ class _AddFormDialogState extends State<AddFormDialog> {
                     style: TextStyle(fontSize: titleSize),
                   ),
                   AddFormInput(
-                    labelText: "Name",
-                    hintText: "Insert the name of bill",
+                    labelText: labelName,
+                    hintText: hintName,
                     icon: Icons.abc,
+                    textInputType: TextInputType.name,
                     textEditingController:
-                        widget.addFormDialogController.nameInputController,
+                        addFormDialogController.nameInputController,
                   ),
                   AddFormInput(
-                    labelText: "Value",
-                    hintText: "Insert the value of bill",
+                    labelText: labelValue,
+                    hintText: hintValue,
                     icon: Icons.monetization_on_outlined,
+                    textInputType: TextInputType.number,
                     textEditingController:
-                        widget.addFormDialogController.valueInputController,
+                        addFormDialogController.valueInputController,
                   ),
                   AddFormInput(
-                    labelText: "Due Date",
-                    hintText: "Insert the Due Date of Bill",
+                    labelText: labelDate,
+                    hintText: hintDate,
                     icon: Icons.calendar_month,
                     readOnly: true,
+                    textInputType: TextInputType.datetime,
                     onTap: () async {
-                      widget.addFormDialogController
-                          .trigguerDatePicker(context);
+                      addFormDialogController.getDatePicker(context);
                     },
                     textEditingController:
-                        widget.addFormDialogController.dueDateInputController,
+                        addFormDialogController.dueDateInputController,
                   ),
                   AddFormInput(
-                    labelText: "Description",
-                    hintText: "Insert a description of bill",
+                    labelText: labelDescription,
+                    hintText: hintDescription,
                     icon: Icons.abc,
+                    textInputType: TextInputType.text,
                     quantLine: 8,
-                    textEditingController: widget
-                        .addFormDialogController.descriptionInputController,
+                    textEditingController:
+                        addFormDialogController.descriptionInputController,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -74,14 +84,16 @@ class _AddFormDialogState extends State<AddFormDialog> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextButton(
-                            onPressed: () {}, child: const Text("Confirmar")),
+                            onPressed: () => addFormDialogController
+                                .confirmButtonFunction(context),
+                            child: const Text(confirmText)),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextButton(
-                            onPressed: () => widget.addFormDialogController
+                            onPressed: () => addFormDialogController
                                 .cancelButtonFuntion(context),
-                            child: const Text("Cancelar")),
+                            child: const Text(cancelText)),
                       ),
                     ],
                   )

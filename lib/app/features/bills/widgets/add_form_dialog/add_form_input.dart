@@ -28,6 +28,7 @@ class AddFormInput extends StatelessWidget {
       onTap: onTap,
       keyboardType: textInputType,
       readOnly: readOnly ?? false,
+      controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,
         icon: Icon(icon),
