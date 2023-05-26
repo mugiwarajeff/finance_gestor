@@ -1,4 +1,7 @@
+import 'package:finance_gestor/app/features/bills/controllers/bills_controller.dart';
+import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddFormDialogController {
   final TextEditingController _nameInputController = TextEditingController();
@@ -19,15 +22,26 @@ class AddFormDialogController {
   TextEditingController get descriptionInputController =>
       _descriptionInputController;
 
-  void cancelButtonFuntion(BuildContext context) {
+  DateTime? get selectedDueDate => _selectedDueDate;
+
+  void closeDialog(BuildContext context) {
     Navigator.pop(context);
   }
 
   void confirmButtonFunction(BuildContext context) {
-    print(_nameInputController.text);
-    print(_valueInputController.text);
-    print(_dueDateInputController.text);
-    print(_descriptionInputController.text);
+    BillsController billsController =
+        Provider.of<BillsController>(context, listen: false);
+    Bill newBill = Bill(
+        name: _nameInputController.text,
+        dueDate: _selectedDueDate!,
+        value: double.tryParse(
+              _valueInputController.text,
+            ) ??
+            0,
+        paid: false);
+
+    billsController.addBill(newBill);
+    closeDialog(context);
   }
 
   Future<void> getDatePicker(BuildContext context) async {

@@ -91,8 +91,8 @@ class AddFormDialog extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextButton(
-                            onPressed: () => addFormDialogController
-                                .cancelButtonFuntion(context),
+                            onPressed: () =>
+                                addFormDialogController.closeDialog(context),
                             child: const Text(cancelText)),
                       ),
                     ],
