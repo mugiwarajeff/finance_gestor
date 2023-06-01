@@ -1,7 +1,7 @@
 import 'package:finance_gestor/app/features/bills/controllers/bills_controller.dart';
+
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AddFormDialogController {
   final TextEditingController _nameInputController = TextEditingController();
@@ -15,6 +15,12 @@ class AddFormDialogController {
 
   DateTime? _selectedDueDate;
 
+  bool _nameIsValid = true;
+
+  bool _valueIsValid = true;
+
+  bool _dueDateIsValid = true;
+
   TextEditingController get nameInputController => _nameInputController;
 
   TextEditingController get valueInputController => _valueInputController;
@@ -24,24 +30,47 @@ class AddFormDialogController {
 
   DateTime? get selectedDueDate => _selectedDueDate;
 
+  bool get nameIsValid => _nameIsValid;
+
+  bool get valueIsValid => _valueIsValid;
+
+  bool get dueDateIsValid => _dueDateIsValid;
+
   void closeDialog(BuildContext context) {
     Navigator.pop(context);
   }
 
   void confirmButtonFunction(BuildContext context) {
-    BillsController billsController =
-        Provider.of<BillsController>(context, listen: false);
-    Bill newBill = Bill(
-        name: _nameInputController.text,
-        dueDate: _selectedDueDate!,
-        value: double.tryParse(
-              _valueInputController.text,
-            ) ??
-            0,
-        paid: false);
+    _validateNameField();
+    _validateValueField();
+    _validateDueDateFiel();
 
-    billsController.addBill(newBill);
-    closeDialog(context);
+    if (_nameIsValid && _valueIsValid && _dueDateIsValid) {
+      Bill newBill = Bill(
+          name: _nameInputController.text,
+          dueDate: _selectedDueDate!,
+          value: double.tryParse(
+                _valueInputController.text,
+              ) ??
+              0,
+          paid: false);
+
+      closeDialog(context);
+    } else {
+      print("unvalidated"); //problema de estados
+    }
+  }
+
+  void _validateNameField() {
+    _nameIsValid = nameInputController.text != "";
+  }
+
+  void _validateValueField() {
+    _valueIsValid = valueInputController.text != "";
+  }
+
+  void _validateDueDateFiel() {
+    _dueDateIsValid = selectedDueDate != null;
   }
 
   Future<void> getDatePicker(BuildContext context) async {

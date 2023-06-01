@@ -16,11 +16,11 @@ class AddFormDialog extends StatelessWidget {
     final double screenSize = MediaQuery.of(context).size.height;
     final double dialogSize = screenSize * 0.7;
 
-    const String labelName = "Name";
+    const String labelName = "* Name";
     const String hintName = "Insert the name of bill";
-    const String labelValue = "Value";
+    const String labelValue = "* Value";
     const String hintValue = "Inser the value of bill";
-    const String labelDate = "Due Date";
+    const String labelDate = "* Due Date";
     const String hintDate = "Insert the Due Date of Bill";
     const String labelDescription = "Description";
     const String hintDescription = "Insert a description of bill";
@@ -48,6 +48,9 @@ class AddFormDialog extends StatelessWidget {
                     textInputType: TextInputType.name,
                     textEditingController:
                         addFormDialogController.nameInputController,
+                    errorText: !addFormDialogController.nameIsValid
+                        ? "Name is blank"
+                        : null,
                   ),
                   AddFormInput(
                     labelText: labelValue,
@@ -56,19 +59,24 @@ class AddFormDialog extends StatelessWidget {
                     textInputType: TextInputType.number,
                     textEditingController:
                         addFormDialogController.valueInputController,
+                    errorText: !addFormDialogController.valueIsValid
+                        ? "Value is blankl"
+                        : null,
                   ),
                   AddFormInput(
-                    labelText: labelDate,
-                    hintText: hintDate,
-                    icon: Icons.calendar_month,
-                    readOnly: true,
-                    textInputType: TextInputType.datetime,
-                    onTap: () async {
-                      addFormDialogController.getDatePicker(context);
-                    },
-                    textEditingController:
-                        addFormDialogController.dueDateInputController,
-                  ),
+                      labelText: labelDate,
+                      hintText: hintDate,
+                      icon: Icons.calendar_month,
+                      readOnly: true,
+                      textInputType: TextInputType.datetime,
+                      onTap: () async {
+                        addFormDialogController.getDatePicker(context);
+                      },
+                      textEditingController:
+                          addFormDialogController.dueDateInputController,
+                      errorText: !addFormDialogController.dueDateIsValid
+                          ? "Due Date is Blank"
+                          : null),
                   AddFormInput(
                     labelText: labelDescription,
                     hintText: hintDescription,

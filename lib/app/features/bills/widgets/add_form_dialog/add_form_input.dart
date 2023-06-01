@@ -9,6 +9,7 @@ class AddFormInput extends StatelessWidget {
   final void Function()? onTap;
   final bool? readOnly;
   final TextInputType? textInputType;
+  final String? errorText;
 
   const AddFormInput(
       {super.key,
@@ -19,7 +20,8 @@ class AddFormInput extends StatelessWidget {
       this.quantLine,
       this.onTap,
       this.readOnly,
-      this.textInputType});
+      this.textInputType,
+      this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,11 @@ class AddFormInput extends StatelessWidget {
       readOnly: readOnly ?? false,
       controller: textEditingController,
       decoration: InputDecoration(
-        hintText: hintText,
-        icon: Icon(icon),
-        labelText: labelText,
-        alignLabelWithHint: true,
-      ),
+          hintText: hintText,
+          icon: Icon(icon),
+          labelText: labelText,
+          alignLabelWithHint: true,
+          errorText: errorText),
     );
   }
 }
