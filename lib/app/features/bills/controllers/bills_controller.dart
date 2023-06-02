@@ -2,7 +2,7 @@ import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog.dart';
 import 'package:flutter/material.dart';
 
-class BillsController extends ChangeNotifier {
+class BillsController {
   final List<Bill> _bills = [
     Bill(
         name: "Riachuello",
@@ -16,7 +16,6 @@ class BillsController extends ChangeNotifier {
 
   void addBill(Bill bill) {
     _bills.add(bill);
-    notifyListeners();
   }
 
   void showAddBillDialog(BuildContext context) {

@@ -1,6 +1,11 @@
 import 'package:finance_gestor/app/features/bills/controllers/add_form_dialog_controller.dart';
+import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
+import 'package:finance_gestor/app/features/bills/widgets/bills_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../models/bill.dart';
 
 class AddFormDialog extends StatelessWidget {
   final AddFormDialogController addFormDialogController =
@@ -13,6 +18,8 @@ class AddFormDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BillsListCubit billsListCubit =
+        BlocProvider.of<BillsListCubit>(context);
     final double screenSize = MediaQuery.of(context).size.height;
     final double dialogSize = screenSize * 0.7;
 
@@ -92,8 +99,12 @@ class AddFormDialog extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: TextButton(
-                            onPressed: () => addFormDialogController
-                                .confirmButtonFunction(context),
+                            onPressed: () => billsListCubit.addNewBill(Bill(
+                                name: "teste",
+                                dueDate: DateTime.now(),
+                                paid: false,
+                                value: 30,
+                                description: "asdka")),
                             child: const Text(confirmText)),
                       ),
                       Padding(
