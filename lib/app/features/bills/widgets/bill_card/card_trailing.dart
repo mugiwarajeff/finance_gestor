@@ -1,4 +1,3 @@
-import 'package:finance_gestor/app/features/bills/cubits/card_trailing/card_state.dart';
 import 'package:finance_gestor/app/features/bills/models/bill_state.dart';
 import 'package:flutter/material.dart';
 

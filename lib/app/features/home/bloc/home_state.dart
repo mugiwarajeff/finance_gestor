@@ -1,5 +1,4 @@
 import 'package:finance_gestor/app/features/home/models/home_item.dart';
-import 'package:flutter/material.dart';
 
 abstract class HomeState {}
 

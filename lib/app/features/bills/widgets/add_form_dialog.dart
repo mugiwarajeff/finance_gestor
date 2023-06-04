@@ -1,7 +1,6 @@
 import 'package:finance_gestor/app/features/bills/controllers/add_form_dialog_controller.dart';
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bills_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
