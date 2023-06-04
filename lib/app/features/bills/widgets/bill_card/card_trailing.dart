@@ -1,4 +1,4 @@
-import 'package:finance_gestor/app/features/bills/controllers/card_trailing_controller.dart';
+import 'package:finance_gestor/app/features/bills/cubits/card_trailing/card_state.dart';
 import 'package:finance_gestor/app/features/bills/models/bill_state.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +6,15 @@ class CardTrailin extends StatelessWidget {
   final double cardHeight = 40;
   final double cardWidth = 70;
   final double cardRadius = 25;
-  final CardTrailinController cardTrailinController = CardTrailinController();
-  final BillStates billState;
+  final Color principalColor;
+  final Color secondaryColor;
+  final BillStates billStates;
 
-  CardTrailin({super.key, required this.billState});
+  const CardTrailin(
+      {super.key,
+      required this.principalColor,
+      required this.secondaryColor,
+      required this.billStates});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +23,15 @@ class CardTrailin extends StatelessWidget {
       width: cardWidth,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(cardRadius),
-          color: cardTrailinController.getSecondaryColor(billState),
+          color: secondaryColor,
           border: Border.all(
-              width: 1,
-              color: cardTrailinController.getPrincipalColor(billState))),
+            width: 1,
+            color: principalColor,
+          )),
       alignment: Alignment.center,
       child: Text(
-          "${billState.name.split("").first.toUpperCase()}${billState.name.substring(1)}",
-          style: TextStyle(
-              color: cardTrailinController.getPrincipalColor(billState))),
+          "${billStates.name.split("").first.toUpperCase()}${billStates.name.substring(1)}",
+          style: TextStyle(color: principalColor)),
     );
   }
 }
