@@ -1,5 +1,5 @@
-import 'package:finance_gestor/app/features/bills/cubits/card_trailing/card_cubit.dart';
-import 'package:finance_gestor/app/features/bills/cubits/card_trailing/card_state.dart';
+import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_cubit.dart';
+import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_state.dart';
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bill_card/card_trailing.dart';
 import 'package:flutter/material.dart';

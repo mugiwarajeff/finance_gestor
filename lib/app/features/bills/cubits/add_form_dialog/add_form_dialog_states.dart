@@ -2,6 +2,8 @@ abstract class AddFormDialogState {}
 
 class InitialAddFormDialogState extends AddFormDialogState {}
 
+class LoadingAddFormDialogState extends AddFormDialogState {}
+
 class LoadedAddFormDialogState extends AddFormDialogState {}
 
 class UnvalidatedAddFormDialogState extends AddFormDialogState {

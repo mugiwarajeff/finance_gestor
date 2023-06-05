@@ -35,7 +35,13 @@ class AddFormDialog extends StatelessWidget {
       child: BlocBuilder<AddFormDialogCubit, AddFormDialogState>(
           bloc: addFormDialogCubit,
           builder: (context, state) {
-            if (state is LoadedAddFormDialogState ||
+            if (state is InitialAddFormDialogState) {
+              return Container();
+            } else if (state is LoadingAddFormDialogState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is LoadedAddFormDialogState ||
                 state is UnvalidatedAddFormDialogState) {
               return BlocListener<AddFormDialogCubit, AddFormDialogState>(
                 bloc: addFormDialogCubit,

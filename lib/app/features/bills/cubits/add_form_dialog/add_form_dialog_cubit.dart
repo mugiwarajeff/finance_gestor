@@ -30,11 +30,16 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
   DateTime? get selectedDueDate => _selectedDueDate;
 
   AddFormDialogCubit() : super(InitialAddFormDialogState()) {
-    emit(LoadedAddFormDialogState());
+    emit(LoadingAddFormDialogState());
+    _loadForm();
   }
 
   void closeDialog(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  void _loadForm() {
+    emit(LoadedAddFormDialogState());
   }
 
   void confirmAddBill(BuildContext context) {
