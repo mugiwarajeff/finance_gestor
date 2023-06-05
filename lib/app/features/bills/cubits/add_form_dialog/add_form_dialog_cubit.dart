@@ -44,8 +44,8 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
 
       Bill newBill = Bill(
           name: nameInputController.text,
-          value: double.tryParse(valueInputController.text) ?? 0,
-          dueDate: _selectedDueDate ?? DateTime.now(),
+          value: double.tryParse(valueInputController.text)!,
+          dueDate: _selectedDueDate!,
           paid: false);
 
       billsListCubit.addNewBill(newBill);
