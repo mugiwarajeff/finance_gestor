@@ -1,4 +1,3 @@
-import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +25,9 @@ class BillsListCubit extends Cubit<BillsListState> {
     emit(BillsListLoaded(bills: _bills));
   }
 
-  void addNewBill(Bill bill) {
+  void addNewBill(Bill bill) async {
+    emit(BillsListLoading());
+    await Future.delayed(const Duration(milliseconds: 1000));
     _bills.add(bill);
     emit(BillsListLoaded(bills: _bills));
   }
