@@ -5,23 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardCubit extends Cubit<CardState> {
-  final Color principalColorPaid = Colors.green;
-  final Color secondaryColorPaid = const Color.fromARGB(30, 105, 240, 175);
-  final Color principalColorOverdue = Colors.orange;
-  final Color secondaryColorOverdue = const Color.fromARGB(30, 255, 172, 64);
-  final Color principalColorOpen = Colors.blue;
-  final Color secondaryColorOpen = const Color.fromARGB(30, 68, 137, 255);
+  final Color _principalColorPaid = Colors.green;
+  final Color _secondaryColorPaid = const Color.fromARGB(30, 105, 240, 175);
+  final Color _principalColorOverdue = Colors.orange;
+  final Color _secondaryColorOverdue = const Color.fromARGB(30, 255, 172, 64);
+  final Color _principalColorOpen = Colors.blue;
+  final Color _secondaryColorOpen = const Color.fromARGB(30, 68, 137, 255);
 
   CardCubit(Bill bill) : super(InitialCardState()) {
     _getCardState(bill);
   }
 
-  void _getCardState(Bill bill) async {
-    emit(LoadingCardState());
+  void _getCardState(Bill bill) {
     if (bill.paid) {
       emit(LoadedCardState(
-          principalColor: principalColorPaid,
-          secondaryColor: secondaryColorPaid,
+          principalColor: _principalColorPaid,
+          secondaryColor: _secondaryColorPaid,
           billStates: BillStates.paid));
     } else {
       _verifyIfOverdue(bill);
@@ -31,14 +30,14 @@ class CardCubit extends Cubit<CardState> {
   void _verifyIfOverdue(Bill bill) {
     if (DateTime.now().isAfter(bill.dueDate)) {
       emit(LoadedCardState(
-        principalColor: principalColorOverdue,
-        secondaryColor: secondaryColorOverdue,
+        principalColor: _principalColorOverdue,
+        secondaryColor: _secondaryColorOverdue,
         billStates: BillStates.overdue,
       ));
     } else {
       emit(LoadedCardState(
-        principalColor: principalColorOpen,
-        secondaryColor: secondaryColorOpen,
+        principalColor: _principalColorOpen,
+        secondaryColor: _secondaryColorOpen,
         billStates: BillStates.open,
       ));
     }

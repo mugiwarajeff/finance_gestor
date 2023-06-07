@@ -6,30 +6,31 @@ import '../../models/bill.dart';
 import '../../widgets/add_form_dialog.dart';
 
 class BillsListCubit extends Cubit<BillsListState> {
-  final List<Bill> _bills = [
-    Bill(
-        name: "Riachuello",
-        value: 143.50,
-        description: "Compra de sapato",
-        dueDate: DateTime(2023, 5, 22),
-        paid: false),
-  ];
+  final List<Bill> _bills = [];
 
   BillsListCubit() : super(BillsListInitial()) {
+    emit(BillsListLoading());
     _loadBills();
   }
 
   Future<void> _loadBills() async {
-    emit(BillsListLoading());
     await Future.delayed(const Duration(seconds: 2));
-    emit(BillsListLoaded(bills: _bills));
+    try {
+      emit(BillsListLoaded(bills: _bills));
+    } catch (e) {
+      emit(BillsListError(error: e.toString()));
+    }
   }
 
-  void addNewBill(Bill bill) async {
+  Future<void> addNewBill(Bill bill) async {
     emit(BillsListLoading());
-    await Future.delayed(const Duration(milliseconds: 1000));
-    _bills.add(bill);
-    emit(BillsListLoaded(bills: _bills));
+    //await Future.delayed(const Duration(milliseconds: 1000));
+    try {
+      _bills.add(bill);
+      emit(BillsListLoaded(bills: _bills));
+    } catch (e) {
+      emit(BillsListError(error: e.toString()));
+    }
   }
 
   void showAddBillDialog(BuildContext context) {

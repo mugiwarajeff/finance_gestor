@@ -1,11 +1,8 @@
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_cubit.dart';
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../models/bill.dart';
 
 class AddFormDialog extends StatelessWidget {
   final AddFormDialogCubit addFormDialogCubit = AddFormDialogCubit();
