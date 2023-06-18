@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddFormDialogCubit extends Cubit<AddFormDialogState> {
+  final BillsListCubit billsListCubit;
   final TextEditingController _nameInputController = TextEditingController();
 
   final TextEditingController _valueInputController = TextEditingController();
@@ -27,9 +28,12 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
   TextEditingController get descriptionInputController =>
       _descriptionInputController;
 
-  DateTime? get selectedDueDate => _selectedDueDate;
+  set selectedDueDate(DateTime? dateTime) {
+    _selectedDueDate = dateTime;
+  }
 
-  AddFormDialogCubit() : super(InitialAddFormDialogState()) {
+  AddFormDialogCubit({required this.billsListCubit})
+      : super(InitialAddFormDialogState()) {
     emit(LoadingAddFormDialogState());
     _loadForm();
   }
@@ -42,11 +46,8 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     emit(LoadedAddFormDialogState());
   }
 
-  void confirmAddBill(BuildContext context) {
+  void confirmAddBill() {
     if (_validateFields()) {
-      BillsListCubit billsListCubit =
-          BlocProvider.of<BillsListCubit>(context, listen: false);
-
       Bill newBill = Bill(
           name: nameInputController.text,
           value: double.tryParse(valueInputController.text)!,
@@ -56,6 +57,11 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
       billsListCubit.addNewBill(newBill);
 
       emit(SentState());
+    } else {
+      emit(UnvalidatedAddFormDialogState(
+          dateError: _dateError.isEmpty ? null : _dateError,
+          nameError: _nameError.isEmpty ? null : _nameError,
+          valueError: _valueError.isEmpty ? null : _valueError));
     }
   }
 
@@ -67,10 +73,6 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     if (_nameError.isNotEmpty ||
         _valueError.isNotEmpty ||
         _dateError.isNotEmpty) {
-      emit(UnvalidatedAddFormDialogState(
-          dateError: _dateError.isEmpty ? null : _dateError,
-          nameError: _nameError.isEmpty ? null : _nameError,
-          valueError: _valueError.isEmpty ? null : _valueError));
       return false;
     }
 

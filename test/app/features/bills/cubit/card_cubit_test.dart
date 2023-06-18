@@ -12,9 +12,9 @@ void main() {
     late Bill overdueBill;
     late Bill openBill;
 
-    late LoadedCardState paidState;
-    late LoadedCardState overdueState;
-    late LoadedCardState openState;
+    late PaidLoadedCardState paidState;
+    late OverdueLoadedCardState overdueState;
+    late OpenLoadedCardState openState;
 
     setUp(() {
       paidBill =
@@ -24,30 +24,14 @@ void main() {
       openBill =
           Bill(name: "open", value: 10, dueDate: DateTime(3000), paid: false);
 
-      paidState = LoadedCardState(
-          principalColor: Colors.green,
-          secondaryColor: const Color.fromARGB(30, 105, 240, 175),
-          billStates: BillStates.paid);
-
-      overdueState = LoadedCardState(
-          principalColor: Colors.orange,
-          secondaryColor: const Color.fromARGB(30, 255, 172, 64),
-          billStates: BillStates.overdue);
-
-      openState = LoadedCardState(
-          principalColor: Colors.blue,
-          secondaryColor: const Color.fromARGB(30, 68, 137, 255),
-          billStates: BillStates.open);
+      paidState = PaidLoadedCardState();
+      overdueState = OverdueLoadedCardState();
+      openState = OpenLoadedCardState();
     });
 
     test("should is in loaded state after instantiation", () {
       CardCubit cardCubit = CardCubit(paidBill);
-      expect(
-          cardCubit.state,
-          equals(LoadedCardState(
-              principalColor: Colors.green,
-              secondaryColor: const Color.fromARGB(30, 105, 240, 175),
-              billStates: BillStates.paid)));
+      expect(cardCubit.state, equals(paidState));
     });
 
     test("should return a loadedState with paid configuration ", () {

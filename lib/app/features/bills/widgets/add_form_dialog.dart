@@ -1,15 +1,18 @@
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_cubit.dart';
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
+import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddFormDialog extends StatelessWidget {
-  final AddFormDialogCubit addFormDialogCubit = AddFormDialogCubit();
-  AddFormDialog({super.key});
+  late final AddFormDialogCubit addFormDialogCubit;
+  final BillsListCubit billsListCubit;
+  AddFormDialog({super.key, required this.billsListCubit}) {
+    addFormDialogCubit = AddFormDialogCubit(billsListCubit: billsListCubit);
+  }
 
   final String prinipalTitle = "Adding a bill";
-
   final double titleSize = 24;
 
   @override
@@ -115,9 +118,8 @@ class AddFormDialog extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: TextButton(
-                                      onPressed: () =>
-                                          addFormDialogCubit.confirmAddBill(
-                                              context), //TODO mudar isso pra um listener
+                                      onPressed: () => addFormDialogCubit
+                                          .confirmAddBill(), //TODO mudar isso pra um listener
                                       child: const Text(confirmText)),
                                 ),
                                 Padding(

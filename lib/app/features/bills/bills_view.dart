@@ -12,21 +12,10 @@ class BillsView extends StatelessWidget {
     BillsListCubit billsListCubit = BlocProvider.of<BillsListCubit>(context);
 
     return Scaffold(
-      body: BlocBuilder(
-          bloc: billsListCubit,
-          builder: (context, BillsListState state) {
-            if (state is BillsListInitial) {
-              return Container();
-            } else if (state is BillsListLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is BillsListLoaded) {
-              return BillsList(bills: state.bills);
-            } else {
-              return Container();
-            }
-          }),
+      body: BillsList(billsListCubit: billsListCubit),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => billsListCubit.showAddBillDialog(context),
+        onPressed: () =>
+            billsListCubit.showAddBillDialog(context, billsListCubit),
         child: const Icon(Icons.add),
       ),
     );

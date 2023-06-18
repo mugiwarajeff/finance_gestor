@@ -13,15 +13,28 @@ class LoadingCardState extends CardState {}
 
 class ErrorCardState extends CardState {}
 
-class LoadedCardState extends CardState {
-  final Color principalColor;
-  final Color secondaryColor;
-  final BillStates billStates;
+class PaidLoadedCardState extends CardState {
+  final Color principalColor = Colors.green;
+  final Color secondaryColor = const Color.fromARGB(30, 105, 240, 175);
+  final BillStates billStates = BillStates.paid;
 
-  LoadedCardState(
-      {required this.principalColor,
-      required this.secondaryColor,
-      required this.billStates});
+  @override
+  List<Object> get props => [principalColor, secondaryColor, billStates];
+}
+
+class OverdueLoadedCardState extends CardState {
+  final Color principalColor = Colors.orange;
+  final Color secondaryColor = const Color.fromARGB(30, 255, 172, 64);
+  final BillStates billStates = BillStates.overdue;
+
+  @override
+  List<Object> get props => [principalColor, secondaryColor, billStates];
+}
+
+class OpenLoadedCardState extends CardState {
+  final Color principalColor = Colors.blue;
+  final Color secondaryColor = const Color.fromARGB(30, 68, 137, 255);
+  final BillStates billStates = BillStates.open;
 
   @override
   List<Object> get props => [principalColor, secondaryColor, billStates];

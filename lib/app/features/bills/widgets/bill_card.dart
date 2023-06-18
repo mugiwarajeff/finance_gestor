@@ -36,7 +36,19 @@ class BillCard extends StatelessWidget {
                 return Container();
               } else if (state is LoadingCardState) {
                 return const CircularProgressIndicator();
-              } else if (state is LoadedCardState) {
+              } else if (state is OpenLoadedCardState) {
+                return CardTrailin(
+                  principalColor: state.principalColor,
+                  secondaryColor: state.secondaryColor,
+                  billStates: state.billStates,
+                );
+              } else if (state is OverdueLoadedCardState) {
+                return CardTrailin(
+                  principalColor: state.principalColor,
+                  secondaryColor: state.secondaryColor,
+                  billStates: state.billStates,
+                );
+              } else if (state is PaidLoadedCardState) {
                 return CardTrailin(
                   principalColor: state.principalColor,
                   secondaryColor: state.secondaryColor,

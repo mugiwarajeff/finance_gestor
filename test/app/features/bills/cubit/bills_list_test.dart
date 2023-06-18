@@ -48,6 +48,4 @@ void main() {
       ],
     );
   });
-
-  tearDown(() => billsListCubit.close());
 }

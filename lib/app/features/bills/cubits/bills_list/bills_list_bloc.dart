@@ -22,9 +22,8 @@ class BillsListCubit extends Cubit<BillsListState> {
     }
   }
 
-  Future<void> addNewBill(Bill bill) async {
+  void addNewBill(Bill bill) {
     emit(BillsListLoading());
-    //await Future.delayed(const Duration(milliseconds: 1000));
     try {
       _bills.add(bill);
       emit(BillsListLoaded(bills: _bills));
@@ -33,10 +32,10 @@ class BillsListCubit extends Cubit<BillsListState> {
     }
   }
 
-  void showAddBillDialog(BuildContext context) {
+  void showAddBillDialog(BuildContext context, BillsListCubit billsListCubit) {
     showDialog(
       context: context,
-      builder: (context) => AddFormDialog(),
+      builder: (context) => AddFormDialog(billsListCubit: billsListCubit),
     );
   }
 }
