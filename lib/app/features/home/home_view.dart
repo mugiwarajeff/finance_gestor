@@ -14,17 +14,7 @@ class HomeView extends StatelessWidget {
         builder: (context, homeState) {
           if (homeState is HomeStateInitial) {
             return Container();
-          } else if (homeState is HomeStateBills) {
-            return Scaffold(
-                appBar: AppBar(title: Text(homeState.homeItem.name)),
-                drawer: const Drawer(),
-                body: homeState.homeItem.principalWidget,
-                bottomNavigationBar: BottomNavigationBar(
-                  items: homeCubit.bottomNavigationBarItens,
-                  onTap: (value) => homeCubit.changeView(value),
-                  currentIndex: homeCubit.selectedIndex,
-                ));
-          } else if (homeState is HomeStateDashboard) {
+          } else if (homeState is LoadedHomeState) {
             return Scaffold(
                 appBar: AppBar(title: Text(homeState.homeItem.name)),
                 drawer: const Drawer(),

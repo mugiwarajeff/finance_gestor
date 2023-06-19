@@ -5,14 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  late PaidLoadedCardState paidLoadedCardState;
-  late OpenLoadedCardState openLoadedCardState;
-  late OverdueLoadedCardState overdueLoadedCardState;
+  late LoadedCardState paidLoadedCardState;
+  late LoadedCardState openLoadedCardState;
+  late LoadedCardState overdueLoadedCardState;
 
   setUp(() {
-    paidLoadedCardState = PaidLoadedCardState();
-    openLoadedCardState = OpenLoadedCardState();
-    overdueLoadedCardState = OverdueLoadedCardState();
+    paidLoadedCardState = LoadedCardState(
+        principalColor: Colors.green,
+        secondaryColor: const Color.fromARGB(30, 105, 240, 175),
+        billStates: BillStates.paid);
+    openLoadedCardState = LoadedCardState(
+        principalColor: Colors.blue,
+        secondaryColor: const Color.fromARGB(30, 68, 137, 255),
+        billStates: BillStates.open);
+    overdueLoadedCardState = LoadedCardState(
+        principalColor: Colors.orange,
+        secondaryColor: const Color.fromARGB(30, 255, 172, 64),
+        billStates: BillStates.overdue);
   });
 
   testWidgets("Should show a cardTrailing with 70 of width and 40 of height ",

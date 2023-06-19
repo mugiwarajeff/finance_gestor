@@ -5,23 +5,24 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late HomeCubit homeCubit;
-  late HomeStateDashboard homeStateDashboard;
-  late HomeStateBills homeStateBills;
+  late LoadedHomeState dashboardState;
+  late LoadedHomeState billsState;
   setUp(() {
     homeCubit = HomeCubit();
-    homeStateDashboard = HomeStateDashboard();
-    homeStateBills = HomeStateBills();
+
+    dashboardState = LoadedHomeState(homeItem: homeCubit.dashboardState);
+    billsState = LoadedHomeState(homeItem: homeCubit.billState);
   });
 
   test("Should initiate the cubit with the HomeStateDashboard", () {
-    expect(homeCubit.state, homeStateDashboard);
+    expect(homeCubit.state, dashboardState);
   });
 
   blocTest(
     "Shoud change state to Bill List when using action to index 1",
     build: () => homeCubit,
     act: (bloc) => bloc.changeView(1),
-    expect: () => [homeStateBills],
+    expect: () => [billsState],
   );
 
   blocTest(
@@ -29,7 +30,7 @@ void main() {
     setUp: () => homeCubit.changeView(1),
     build: () => homeCubit,
     act: (bloc) => bloc.changeView(0),
-    expect: () => [homeStateDashboard],
+    expect: () => [dashboardState],
   );
 
   tearDown(() {});

@@ -12,22 +12,10 @@ abstract class HomeState extends Equatable {
 
 class HomeStateInitial extends HomeState {}
 
-class HomeStateDashboard extends HomeState {
-  final HomeItem homeItem = HomeItem(
-      name: "Dashboard",
-      icon: Icons.dashboard,
-      principalView: const DashboardsView());
+class LoadedHomeState extends HomeState {
+  final HomeItem homeItem;
 
-  @override
-  List<Object> get props => [homeItem];
-}
-
-class HomeStateBills extends HomeState {
-  final HomeItem homeItem = HomeItem(
-    name: "Bills",
-    icon: Icons.list,
-    principalView: const BillsView(),
-  );
+  LoadedHomeState({required this.homeItem});
 
   @override
   List<Object> get props => [homeItem];
