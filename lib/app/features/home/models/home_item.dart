@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class HomeItem {
+class HomeItem extends Equatable {
   late String _name;
   late IconData _icon;
 
@@ -21,4 +22,7 @@ class HomeItem {
   Widget get principalWidget => _principalView;
 
   String get name => _name;
+
+  @override
+  List<Object> get props => [_name, _icon, _principalView];
 }
