@@ -7,9 +7,9 @@ import '../../bills/bills_view.dart';
 import '../../dashboards/dashboards_view.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final HomeItem billState = HomeItem(
+  final HomeItem _billState = HomeItem(
       name: "Bills", icon: Icons.list, principalView: const BillsView());
-  final HomeItem dashboardState = HomeItem(
+  final HomeItem _dashboardState = HomeItem(
       name: "Dashboard",
       icon: Icons.dashboard,
       principalView: const DashboardsView());
@@ -25,10 +25,14 @@ class HomeCubit extends Cubit<HomeState> {
   List<BottomNavigationBarItem> get bottomNavigationBarItens =>
       _bottomNavigationBarItens;
 
+  HomeItem get billState => _billState;
+
+  HomeItem get dashboardState => _dashboardState;
+
   int get selectedIndex => _selectedIndex;
 
   HomeCubit() : super(HomeStateInitial()) {
-    emit(LoadedHomeState(homeItem: dashboardState));
+    emit(LoadedHomeState(homeItem: _dashboardState));
   }
 
   void changeView(int index) {
@@ -36,10 +40,10 @@ class HomeCubit extends Cubit<HomeState> {
 
     switch (_selectedIndex) {
       case 0:
-        emit(LoadedHomeState(homeItem: dashboardState));
+        emit(LoadedHomeState(homeItem: _dashboardState));
         break;
       case 1:
-        emit(LoadedHomeState(homeItem: billState));
+        emit(LoadedHomeState(homeItem: _billState));
         break;
     }
   }
