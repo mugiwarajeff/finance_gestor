@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bill_card.dart';

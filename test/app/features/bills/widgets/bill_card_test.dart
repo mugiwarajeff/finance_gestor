@@ -1,4 +1,3 @@
-import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_cubit.dart';
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bill_card.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bill_card/card_trailing.dart';

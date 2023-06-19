@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomeItem extends Equatable {
   late String _name;
   late IconData _icon;

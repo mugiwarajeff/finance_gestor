@@ -9,6 +9,7 @@ void main() {
   group("Group of test for Add Form Dialog Cubit", () {
     late AddFormDialogCubit addFormDialogCubit;
     final BillsListCubitMock billsListCubitMock = BillsListCubitMock();
+    // ignore: unused_local_variable
     final UnvalidatedAddFormDialogState unvalidatedAddFormDialogStateFull =
         UnvalidatedAddFormDialogState(
             nameError: "Name is Blank",

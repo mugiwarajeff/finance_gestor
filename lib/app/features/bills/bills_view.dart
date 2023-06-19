@@ -1,5 +1,4 @@
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bills_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
