@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "115072151345",
+    "project_id": "finance-gestor-2a994",
+    "storage_bucket": "finance-gestor-2a994.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115072151345:android:005548951dfb3c7b91ca10",
+        "android_client_info": {
+          "package_name": "com.example.finance_gestor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115072151345-a6s9oqmc6um7vi2pfb7ir9go34jas71q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsElc8kwD0KL_wifYlJE6-PVE7M63mjoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115072151345-a6s9oqmc6um7vi2pfb7ir9go34jas71q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
