@@ -16,4 +16,19 @@ class Bill extends Equatable {
 
   @override
   List<Object?> get props => [name, value, description, dueDate, paid];
+
+  Bill.fromJson(Map<String, dynamic> json)
+      : name = json["name"],
+        value = json["value"],
+        description = json["description"],
+        dueDate = DateTime.fromMillisecondsSinceEpoch(json["dueDate"]),
+        paid = json["paid"] == 1 ? true : false;
+
+  Map<String, dynamic> toJsonDB() => {
+        "name": name,
+        "value": value,
+        "description": description,
+        "dueDate": dueDate.millisecondsSinceEpoch,
+        "paid": paid ? 1 : 0
+      };
 }
