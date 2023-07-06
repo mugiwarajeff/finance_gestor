@@ -4,15 +4,26 @@ import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_s
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+import '../../../../mocks/bills_dao_mock.dart';
 
 void main() {
+  final BillsDAOMock billsDAOMock = BillsDAOMock();
   late BillsListCubit billsListCubit;
   late Bill bill;
   group("Group of Bill List BLoC  test", () {
     setUp(() {
-      billsListCubit = BillsListCubit();
+      billsListCubit = BillsListCubit(billsDAO: billsDAOMock);
       bill =
           Bill(name: "teste", value: 10, dueDate: DateTime.now(), paid: false);
+
+      when(() => billsDAOMock.getAllBills())
+          .thenAnswer((invocation) async => []);
+
+      when(
+        () => billsDAOMock.insertBill(bill),
+      ).thenAnswer((invocation) async => 1);
     });
 
     test("should initiate the cubit with BillListLoading", () {

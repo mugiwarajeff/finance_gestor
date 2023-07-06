@@ -3,7 +3,7 @@ import 'package:finance_gestor/database/daos/bills_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:mocktail/mocktail.dart';
-import 'mocks/database_mock.dart';
+import '../../mocks/database_mock.dart';
 
 void main() {
   final Bill billTest = Bill(

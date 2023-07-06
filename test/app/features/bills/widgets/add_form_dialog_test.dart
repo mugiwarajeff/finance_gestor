@@ -4,11 +4,13 @@ import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_fo
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../../mocks/bills_dao_mock.dart';
+
 void main() {
   late BillsListCubit billsListCubit;
 
   setUp(() {
-    billsListCubit = BillsListCubit();
+    billsListCubit = BillsListCubit(billsDAO: BillsDAOMock());
   });
 
   testWidgets("Should present formulary with principal fields",

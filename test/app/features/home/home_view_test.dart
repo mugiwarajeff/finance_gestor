@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../mocks/bills_dao_mock.dart';
+
 void main() {
   setUp(() {});
 
@@ -38,7 +40,7 @@ void main() {
       (WidgetTester tester) async {
     const String expectedAppbarTitle = "Bills";
     await tester.pumpWidget(BlocProvider(
-      create: (context) => BillsListCubit(),
+      create: (context) => BillsListCubit(billsDAO: BillsDAOMock()),
       child: MaterialApp(
         home: HomeView(),
       ),
