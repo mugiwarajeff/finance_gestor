@@ -27,71 +27,74 @@ class BillCard extends StatelessWidget {
     const double rightLeft = 16;
     const Color dismissItemColor = Colors.white;
 
-    return Dismissible(
-      key: dismissibleKey,
-      background: Container(
-          color: Colors.red,
-          child: Padding(
-            padding: const EdgeInsets.only(right: rightLeft),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Text(
-                  dismissText,
-                  style: TextStyle(color: dismissItemColor),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Icon(
-                  Icons.delete,
-                  color: dismissItemColor,
-                ),
-              ],
-            ),
-          )),
-      confirmDismiss: (direction) async {
-        bool value = await showDialog(
-          context: context,
-          builder: (context) => const ConfirmDialog(),
-        );
+    return InkWell(
+      onTap: () => Navigator.of(context).pushNamed("/bills/edit"),
+      child: Dismissible(
+        key: dismissibleKey,
+        background: Container(
+            color: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.only(right: rightLeft),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Text(
+                    dismissText,
+                    style: TextStyle(color: dismissItemColor),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.delete,
+                    color: dismissItemColor,
+                  ),
+                ],
+              ),
+            )),
+        confirmDismiss: (direction) async {
+          bool value = await showDialog(
+            context: context,
+            builder: (context) => const ConfirmDialog(),
+          );
 
-        return value;
-      },
-      onDismissed: (direction) => onDelete(),
-      direction: DismissDirection.endToStart,
-      child: Card(
-          child: Align(
-        alignment: Alignment.center,
-        child: ListTile(
-          title:
-              Text("R\$ ${bill.value.toStringAsFixed(2).replaceAll(".", ",")}"),
-          subtitle: Text(bill.name),
-          leading: SizedBox(
-            height: double.infinity,
-            child: Icon(
-              Icons.monetization_on,
-              size: iconSize,
+          return value;
+        },
+        onDismissed: (direction) => onDelete(),
+        direction: DismissDirection.endToStart,
+        child: Card(
+            child: Align(
+          alignment: Alignment.center,
+          child: ListTile(
+            title: Text(
+                "R\$ ${bill.value.toStringAsFixed(2).replaceAll(".", ",")}"),
+            subtitle: Text(bill.name),
+            leading: SizedBox(
+              height: double.infinity,
+              child: Icon(
+                Icons.monetization_on,
+                size: iconSize,
+              ),
             ),
+            trailing: BlocBuilder<CardCubit, CardState>(
+                bloc: cardCubit,
+                builder: (context, state) {
+                  if (state is InitialCardState) {
+                    return Container();
+                  } else if (state is LoadedCardState) {
+                    return CardTrailin(
+                      principalColor: state.principalColor,
+                      secondaryColor: state.secondaryColor,
+                      billStates: state.billStates,
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
           ),
-          trailing: BlocBuilder<CardCubit, CardState>(
-              bloc: cardCubit,
-              builder: (context, state) {
-                if (state is InitialCardState) {
-                  return Container();
-                } else if (state is LoadedCardState) {
-                  return CardTrailin(
-                    principalColor: state.principalColor,
-                    secondaryColor: state.secondaryColor,
-                    billStates: state.billStates,
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

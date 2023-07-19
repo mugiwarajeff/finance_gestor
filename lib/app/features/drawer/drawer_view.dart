@@ -16,8 +16,9 @@ class DrawerView extends StatelessWidget {
       children: const [
         DrawerHeader(
             child: CircleAvatar(
-          maxRadius: 20,
-          minRadius: 20,
+          maxRadius: 10,
+          minRadius: 10,
+          child: Icon(Icons.person, size: 64),
         )),
         NavigationDrawerDestination(
           icon: Icon(Icons.settings),

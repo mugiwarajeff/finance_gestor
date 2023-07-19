@@ -1,10 +1,9 @@
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/main_tasks.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'app/app.dart';
+import 'app/features/configurations/bloc/configurations_cubit.dart';
 import 'database/daos/bills_dao.dart';
 import 'database/database_helper.dart';
 
@@ -21,6 +20,7 @@ void main() async {
         create: (context) => BillsListCubit(
             billsDAO: BillsDAO(database: DatabaseHelper.database)),
       ),
+      BlocProvider(create: (context) => ConfigurationsCubit())
     ],
     child: MyApp(),
   ));
