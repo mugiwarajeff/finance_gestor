@@ -8,7 +8,8 @@ void main() {
     databaseFactory = databaseFactoryFfi;
   });
   test("Should Return a database Instance", () async {
-    Database database = await DatabaseHelper.getDataBase();
+    await DatabaseHelper.initDatabase();
+    Database database = DatabaseHelper.database;
     expect(database, isA<Database>());
   });
 }

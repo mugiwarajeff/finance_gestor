@@ -3,22 +3,32 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
-  static Future<Database> getDataBase() async {
-    final String databaseDir = await getDatabasesPath();
-    const String databaseName = "database.db";
-    const int databaseVersion = 1;
+  static Future<String> get _databaseDir async => await getDatabasesPath();
+  static const String _databaseName = "database.db";
+  static const int databaseVersion = 3;
+  static Database? _database;
 
-    final String databasePath = join(databaseDir, databaseName);
+  DatabaseHelper._();
 
-    Database database = await openDatabase(
+  static Database get database {
+    try {
+      return _database!;
+    } on Exception {
+      throw Exception("Try to initiate the database instance");
+    }
+  }
+
+  static Future<void> initDatabase() async {
+    final String databasePath = join(await _databaseDir, _databaseName);
+
+    _database = await openDatabase(
       databasePath,
       version: databaseVersion,
       onCreate: (db, version) async {
         await db.execute(BillsDAO.billsSql);
       },
-      onDowngrade: (db, oldVersion, newVersion) => {},
+      onUpgrade: (db, oldVersion, newVersion) => deleteDatabase(databasePath),
+      onDowngrade: (db, oldVersion, newVersion) => deleteDatabase(databasePath),
     );
-
-    return database;
   }
 }

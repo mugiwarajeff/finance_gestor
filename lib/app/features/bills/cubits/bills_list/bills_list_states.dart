@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import '../../models/bill.dart';
+import 'error_types.dart';
 
 abstract class BillsListState extends Equatable {
   @override
@@ -21,7 +22,7 @@ class BillsListLoaded extends BillsListState {
 }
 
 class BillsListError extends BillsListState {
-  final String error;
+  final BillsErrorType errorType;
 
-  BillsListError({required this.error});
+  BillsListError({required this.errorType});
 }

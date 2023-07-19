@@ -1,3 +1,4 @@
+import 'package:finance_gestor/app/features/drawer/drawer_view.dart';
 import 'package:finance_gestor/app/features/home/bloc/home_cubit.dart';
 import 'package:finance_gestor/app/features/home/bloc/home_state.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class HomeView extends StatelessWidget {
           } else if (homeState is LoadedHomeState) {
             return Scaffold(
                 appBar: AppBar(title: Text(homeState.homeItem.name)),
-                drawer: const Drawer(),
+                drawer: const DrawerView(),
                 body: homeState.homeItem.principalWidget,
                 bottomNavigationBar: BottomNavigationBar(
                   items: homeCubit.bottomNavigationBarItens,

@@ -1,5 +1,7 @@
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
+import 'package:finance_gestor/app/features/bills/widgets/bills_list/empty_page.dart';
+import 'package:finance_gestor/app/features/bills/widgets/bills_list/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,23 +13,40 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
+    billsListCubit.loadBills();
+
+    return BlocListener<BillsListCubit, BillsListState>(
       bloc: billsListCubit,
-      builder: (context, BillsListState state) {
-        if (state is BillsListInitial) {
-          return Container();
-        } else if (state is BillsListLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is BillsListLoaded) {
-          return ListView.builder(
-            itemBuilder: (context, index) =>
-                BillCard(bill: state.bills.elementAt(index)),
-            itemCount: state.bills.length,
-          );
-        } else {
-          return Container();
+      listener: (context, state) {
+        if (state is BillsListError) {
+          showDialog(
+              context: context,
+              builder: (context) =>
+                  ErrorDialog(billsErrorType: state.errorType));
         }
       },
+      child: BlocBuilder(
+        bloc: billsListCubit,
+        builder: (context, BillsListState state) {
+          if (state is BillsListInitial) {
+            return EmptyPage();
+          } else if (state is BillsListLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is BillsListLoaded) {
+            return ListView.builder(
+              itemBuilder: (context, index) => BillCard(
+                bill: state.bills.elementAt(index),
+                dismissibleKey: Key("${state.bills.elementAt(index)}"),
+                onDelete: () =>
+                    billsListCubit.deleteBill(state.bills.elementAt(index)),
+              ),
+              itemCount: state.bills.length,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

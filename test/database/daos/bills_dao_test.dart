@@ -1,7 +1,7 @@
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/database/daos/bills_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sqflite/sqflite.dart';
+
 import 'package:mocktail/mocktail.dart';
 import '../../mocks/database_mock.dart';
 
@@ -21,6 +21,10 @@ void main() {
       () => databaseMock.insert(any(), any()),
     ).thenAnswer((realInvocation) async => 1);
 
+    when(
+      () => databaseMock.delete("bills", where: "name = '${billTest.name}'"),
+    ).thenAnswer((realInvocation) async => 1);
+
     when(() => databaseMock.query(any()))
         .thenAnswer((realInvocation) async => [billTest.toJsonDB()]);
   });
@@ -35,6 +39,11 @@ void main() {
 
     expect(bills, isA<List<Bill>>());
     expect(bills.first, equals(billTest));
+  });
+
+  test("Should return the bill when delete a Bill", () async {
+    Bill? billDeleted = await billsDAO.deleteBill(billTest);
+    expect(billDeleted, equals(billTest));
   });
 
   tearDown(() {});

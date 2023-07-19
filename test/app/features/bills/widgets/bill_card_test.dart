@@ -13,7 +13,11 @@ void main() {
   testWidgets("Should have a ListTile with the text of value and icon",
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: BillCard(bill: bill),
+      home: BillCard(
+        bill: bill,
+        dismissibleKey: Key("${bill.name}"),
+        onDelete: () {},
+      ),
     ));
 
     Finder listTileFinder = find.byType(ListTile);
@@ -32,7 +36,11 @@ void main() {
 
   testWidgets("Should have a CardTrailing", (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: BillCard(bill: bill),
+      home: BillCard(
+        bill: bill,
+        dismissibleKey: Key("${bill.name}"),
+        onDelete: () {},
+      ),
     ));
 
     Finder cardTrailingFinder = find.byType(CardTrailin);

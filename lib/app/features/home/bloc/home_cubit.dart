@@ -8,7 +8,10 @@ import '../../dashboards/dashboards_view.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeItem _billState = HomeItem(
-      name: "Bills", icon: Icons.list, principalView: const BillsView());
+    name: "Bills",
+    icon: Icons.list,
+    principalView: const BillsView(),
+  );
   final HomeItem _dashboardState = HomeItem(
       name: "Dashboard",
       icon: Icons.dashboard,

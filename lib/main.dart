@@ -11,15 +11,15 @@ import 'database/database_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  BillsDAO billsDao = BillsDAO(database: await DatabaseHelper.getDataBase());
-
+  await MainTasks.initDatabase();
   await MainTasks.initFireBase();
   MainTasks.configureCrashlytics();
 
   return runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
-        create: (context) => BillsListCubit(billsDAO: billsDao),
+        create: (context) => BillsListCubit(
+            billsDAO: BillsDAO(database: DatabaseHelper.database)),
       ),
     ],
     child: MyApp(),

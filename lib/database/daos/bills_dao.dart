@@ -1,5 +1,4 @@
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
-import 'package:finance_gestor/database/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BillsDAO {
@@ -11,14 +10,14 @@ class BillsDAO {
   static const String _paid = "paid";
 
   static String billsSql = 'CREATE TABLE $_tableName ('
-      '$_name TEXT,'
+      '$_name TEXT PRIMARY KEY,'
       '$_value REAL,'
       '$_description TEXT,'
       '$_dueDate INTEGER,'
       '$_paid INTEGER'
       ')';
 
-  Database database;
+  late Database database;
 
   BillsDAO({required this.database});
 
@@ -34,5 +33,27 @@ class BillsDAO {
         billsFromDB.map((billJson) => Bill.fromJson(billJson)).toList();
 
     return billsToReturn;
+  }
+
+  Future<Bill?> deleteBill(Bill bill) async {
+    int quantDelete =
+        await database.delete(_tableName, where: "$_name = '${bill.name}'");
+
+    if (quantDelete == 1) {
+      return bill;
+    }
+
+    return null;
+  }
+
+  Future<Bill?> updateBill(Bill bill) async {
+    int quantUpdate = await database.update(_tableName, bill.toJsonDB(),
+        where: "$_name = '${bill.name}' ");
+
+    if (quantUpdate == 1) {
+      return bill;
+    }
+
+    return null;
   }
 }
