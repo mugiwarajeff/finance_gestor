@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const String titleText = "Are you sure?";
+    final String titleText = AppLocalizations.of(context)!.areYouSure;
     const IconData icon = Icons.warning;
     const double iconSize = 64;
     Color iconColor = Theme.of(context).primaryColor;
-    const String contentText =
-        "Do you really want to delete these bill? this process cannot be undone.";
-    const String deleteText = "Delete";
-    const String cancelText = "Cancel";
+    final String contentText = AppLocalizations.of(context)!.areYouSureText;
+    final String deleteText = AppLocalizations.of(context)!.delete;
+    final String cancelText = AppLocalizations.of(context)!.cancel;
     return AlertDialog(
-      title: const Text(titleText),
+      title: Text(titleText),
       icon: const Icon(
         icon,
         size: iconSize,
       ),
       iconColor: iconColor,
-      content: const Text(contentText),
+      content: Text(contentText),
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(deleteText)),
+            child: Text(deleteText)),
         TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text(cancelText)),
+            child: Text(cancelText)),
       ],
     );
   }

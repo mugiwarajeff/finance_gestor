@@ -1,6 +1,6 @@
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/error_types.dart';
-import 'package:finance_gestor/database/daos/bills_dao.dart';
+import 'package:finance_gestor/app/shared/database/daos/bills_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';

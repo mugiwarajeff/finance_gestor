@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeView extends StatelessWidget {
-  final HomeCubit homeCubit = HomeCubit();
-  HomeView({super.key});
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeCubit homeCubit = HomeCubit(context);
     return BlocBuilder(
         bloc: homeCubit,
         builder: (context, homeState) {
@@ -21,8 +21,8 @@ class HomeView extends StatelessWidget {
                 drawer: const DrawerView(),
                 body: homeState.homeItem.principalWidget,
                 bottomNavigationBar: BottomNavigationBar(
-                  items: homeCubit.bottomNavigationBarItens,
-                  onTap: (value) => homeCubit.changeView(value),
+                  items: homeCubit.getBottomNavigationBarItens(context),
+                  onTap: (value) => homeCubit.changeView(value, context),
                   currentIndex: homeCubit.selectedIndex,
                 ));
           } else {

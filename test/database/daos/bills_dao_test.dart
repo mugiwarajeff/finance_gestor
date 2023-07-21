@@ -1,5 +1,5 @@
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
-import 'package:finance_gestor/database/daos/bills_dao.dart';
+import 'package:finance_gestor/app/shared/database/daos/bills_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mocktail/mocktail.dart';

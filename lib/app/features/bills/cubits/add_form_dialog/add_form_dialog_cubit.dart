@@ -2,6 +2,7 @@ import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_for
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddFormDialogCubit extends Cubit<AddFormDialogState> {
@@ -46,8 +47,8 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     emit(LoadedAddFormDialogState());
   }
 
-  void confirmAddBill() {
-    if (_validateFields()) {
+  void confirmAddBill(BuildContext context) {
+    if (_validateFields(context)) {
       Bill newBill = Bill(
           name: nameInputController.text,
           value: double.tryParse(valueInputController.text)!,
@@ -65,10 +66,10 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     }
   }
 
-  bool _validateFields() {
-    _nameError = _validateName();
-    _valueError = _validateValue();
-    _dateError = _validateDueDate();
+  bool _validateFields(BuildContext context) {
+    _nameError = _validateName(context);
+    _valueError = _validateValue(context);
+    _dateError = _validateDueDate(context);
 
     if (_nameError.isNotEmpty ||
         _valueError.isNotEmpty ||
@@ -79,27 +80,27 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     return true;
   }
 
-  String _validateName() {
+  String _validateName(BuildContext context) {
     if (_nameInputController.text.isEmpty) {
-      return "Name is Blank";
+      return AppLocalizations.of(context)!.nameIsBlank;
     }
     return "";
   }
 
-  String _validateValue() {
+  String _validateValue(BuildContext context) {
     if (_valueInputController.text.isEmpty) {
-      return "Value is Blank";
+      return AppLocalizations.of(context)!.valueIsBlank;
     }
 
     if (double.tryParse(_valueInputController.text) == null) {
-      return "Value is not a number";
+      return AppLocalizations.of(context)!.valueIsNotNumber;
     }
     return "";
   }
 
-  String _validateDueDate() {
+  String _validateDueDate(BuildContext context) {
     if (_selectedDueDate == null) {
-      return "Date is Blank";
+      return AppLocalizations.of(context)!.dateIsBlank;
     }
 
     return "";

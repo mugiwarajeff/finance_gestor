@@ -1,4 +1,4 @@
-import 'package:finance_gestor/database/database_helper.dart';
+import 'package:finance_gestor/app/shared/database/database_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 

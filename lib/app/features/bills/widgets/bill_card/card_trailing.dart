@@ -1,4 +1,5 @@
 import 'package:finance_gestor/app/features/bills/models/bill_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CardTrailin extends StatelessWidget {
@@ -15,6 +16,17 @@ class CardTrailin extends StatelessWidget {
       required this.secondaryColor,
       required this.billStates});
 
+  String getText(BuildContext context) {
+    switch (billStates) {
+      case BillStates.open:
+        return AppLocalizations.of(context)!.open;
+      case BillStates.overdue:
+        return AppLocalizations.of(context)!.overdue;
+      case BillStates.paid:
+        return AppLocalizations.of(context)!.paid;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,9 +40,7 @@ class CardTrailin extends StatelessWidget {
             color: principalColor,
           )),
       alignment: Alignment.center,
-      child: Text(
-          "${billStates.name.split("").first.toUpperCase()}${billStates.name.substring(1)}",
-          style: TextStyle(color: principalColor)),
+      child: Text(getText(context), style: TextStyle(color: principalColor)),
     );
   }
 }

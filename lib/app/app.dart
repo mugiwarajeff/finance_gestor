@@ -8,6 +8,7 @@ import 'package:finance_gestor/app/features/home/home_view.dart';
 import 'package:finance_gestor/app/shared/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   final AppTheme appTheme = AppTheme();
@@ -21,12 +22,14 @@ class MyApp extends StatelessWidget {
       bloc: configurationsCubit,
       builder: (context, state) => MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: state is LoadedConfigurationsState
             ? (state.darkTheme
                 ? appTheme.themeDataDark
                 : appTheme.themeDataLight)
             : null,
-        locale: Locale("pt"),
+        locale: state is LoadedConfigurationsState ? state.locale : null,
         routes: {
           "/": (context) => HomeView(),
           "/bills": (context) => const BillsView(),

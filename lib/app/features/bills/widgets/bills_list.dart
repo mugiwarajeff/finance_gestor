@@ -21,15 +21,17 @@ class BillsList extends StatelessWidget {
         if (state is BillsListError) {
           showDialog(
               context: context,
-              builder: (context) =>
-                  ErrorDialog(billsErrorType: state.errorType));
+              builder: (context) => ErrorDialog(
+                    billsErrorType: state.errorType,
+                    context: context,
+                  ));
         }
       },
       child: BlocBuilder(
         bloc: billsListCubit,
         builder: (context, BillsListState state) {
           if (state is BillsListInitial) {
-            return EmptyPage();
+            return const EmptyPage();
           } else if (state is BillsListLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is BillsListLoaded) {

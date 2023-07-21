@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app/app.dart';
 import 'app/features/configurations/bloc/configurations_cubit.dart';
-import 'database/daos/bills_dao.dart';
-import 'database/database_helper.dart';
+import 'app/shared/database/daos/bills_dao.dart';
+import 'app/shared/database/database_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

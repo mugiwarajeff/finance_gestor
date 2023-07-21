@@ -1,6 +1,7 @@
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_cubit.dart';
 
 class ConfigurationsView extends StatelessWidget {
@@ -14,9 +15,9 @@ class ConfigurationsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final configurationsCubit = BlocProvider.of<ConfigurationsCubit>(context);
 
-    final String appBarTitle = "Configurations";
-    final String themeSwitchText = "Switch Theme";
-    final String languageSwitchText = "Language Switch";
+    final String appBarTitle = AppLocalizations.of(context)!.configurations;
+    final String themeSwitchText = AppLocalizations.of(context)!.switchTheme;
+    final String languageSwitchText = AppLocalizations.of(context)!.language;
 
     return Scaffold(
       appBar: AppBar(title: Text(appBarTitle)),

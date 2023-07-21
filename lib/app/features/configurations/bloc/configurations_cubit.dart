@@ -8,11 +8,15 @@ class ConfigurationsCubit extends Cubit {
 
   List<AvailableLocale> availableLocales = [
     AvailableLocale(
-        path: "lib/assets/images/flag_usa.png",
+        path: "lib/app/shared/assets/images/flag_usa.png",
         locale: const Locale("en", "US")),
     AvailableLocale(
-      path: "lib/assets/images/flag_br.png",
+      path: "lib/app/shared/assets/images/flag_br.png",
       locale: const Locale("pt", "BR"),
+    ),
+    AvailableLocale(
+      path: "lib/app/shared/assets/images/flag_esp.png",
+      locale: const Locale("es", "ES"),
     )
   ];
 

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmptyPage extends StatelessWidget {
   const EmptyPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const String imagePath = "lib/assets/images/box.png";
+    const String imagePath = "lib/app/shared/assets/images/box.png";
     const double imageSize = 200;
-    const String titleText = "Lista Vazia";
+    final String titleText = AppLocalizations.of(context)!.emptyList;
     const double titleSize = 32;
-    const String bodyText = "Inicie cadastrando uma nova conta";
+    final String bodyText = AppLocalizations.of(context)!.startRecordingBill;
     const double bodySize = 14;
 
     return SizedBox(
@@ -29,11 +30,11 @@ class EmptyPage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text(
+          Text(
             titleText,
             style: TextStyle(fontSize: titleSize),
           ),
-          const Text(
+          Text(
             bodyText,
             style: TextStyle(fontSize: bodySize),
           ),

@@ -4,6 +4,7 @@ import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:finance_gestor/app/features/bills/widgets/bill_card/card_trailing.dart';
 import 'package:finance_gestor/app/shared/widgets/confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BillCard extends StatelessWidget {
@@ -23,7 +24,7 @@ class BillCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String dismissText = "Delete Bill?";
+    final String dismissText = AppLocalizations.of(context)!.deleteBill;
     const double rightLeft = 16;
     const Color dismissItemColor = Colors.white;
 
@@ -38,15 +39,15 @@ class BillCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     dismissText,
                     style: TextStyle(color: dismissItemColor),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.delete,
                     color: dismissItemColor,
                   ),
