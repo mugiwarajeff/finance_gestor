@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/form_unvalidated_state.dart';
+
 class AddFormDialogCubit extends Cubit<AddFormDialogState> {
   final BillsListCubit billsListCubit;
   final TextEditingController _nameInputController = TextEditingController();
@@ -17,10 +19,6 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
       TextEditingController();
 
   DateTime? _selectedDueDate;
-
-  String _nameError = "";
-  String _valueError = "";
-  String _dateError = "";
 
   TextEditingController get nameInputController => _nameInputController;
 
@@ -47,8 +45,9 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
     emit(LoadedAddFormDialogState());
   }
 
-  void confirmAddBill(BuildContext context) {
-    if (_validateFields(context)) {
+  void confirmAddBill() {
+    List<UnvalidatedTypes> unvalidatedTypes = _validateFields();
+    if (unvalidatedTypes.isEmpty) {
       Bill newBill = Bill(
           name: nameInputController.text,
           value: double.tryParse(valueInputController.text)!,
@@ -59,51 +58,47 @@ class AddFormDialogCubit extends Cubit<AddFormDialogState> {
 
       emit(SentState());
     } else {
-      emit(UnvalidatedAddFormDialogState(
-          dateError: _dateError.isEmpty ? null : _dateError,
-          nameError: _nameError.isEmpty ? null : _nameError,
-          valueError: _valueError.isEmpty ? null : _valueError));
+      emit(UnvalidatedAddFormDialogState(unvalidatedTypes: unvalidatedTypes));
     }
   }
 
-  bool _validateFields(BuildContext context) {
-    _nameError = _validateName(context);
-    _valueError = _validateValue(context);
-    _dateError = _validateDueDate(context);
+  List<UnvalidatedTypes> _validateFields() {
+    var nameIsValid = _validateName();
+    var valueIsValid = _validateValue();
+    var dateIsValid = _validateDueDate();
 
-    if (_nameError.isNotEmpty ||
-        _valueError.isNotEmpty ||
-        _dateError.isNotEmpty) {
-      return false;
-    }
+    List<UnvalidatedTypes> listUnvalidatedTypes = [];
 
-    return true;
+    if (nameIsValid != null) listUnvalidatedTypes.add(nameIsValid);
+    if (valueIsValid != null) listUnvalidatedTypes.add(valueIsValid);
+    if (dateIsValid != null) listUnvalidatedTypes.add(dateIsValid);
+
+    return listUnvalidatedTypes;
   }
 
-  String _validateName(BuildContext context) {
+  UnvalidatedTypes? _validateName() {
     if (_nameInputController.text.isEmpty) {
-      return AppLocalizations.of(context)!.nameIsBlank;
+      return UnvalidatedTypes.nameBlank;
     }
-    return "";
+    return null;
   }
 
-  String _validateValue(BuildContext context) {
+  UnvalidatedTypes? _validateValue() {
     if (_valueInputController.text.isEmpty) {
-      return AppLocalizations.of(context)!.valueIsBlank;
+      return UnvalidatedTypes.valueBlank;
     }
 
     if (double.tryParse(_valueInputController.text) == null) {
-      return AppLocalizations.of(context)!.valueIsNotNumber;
+      return UnvalidatedTypes.valueNotNumeric;
     }
-    return "";
+    return null;
   }
 
-  String _validateDueDate(BuildContext context) {
+  UnvalidatedTypes? _validateDueDate() {
     if (_selectedDueDate == null) {
-      return AppLocalizations.of(context)!.dateIsBlank;
+      return UnvalidatedTypes.dateBlank;
     }
-
-    return "";
+    return null;
   }
 
   Future<void> getDatePicker(BuildContext context) async {

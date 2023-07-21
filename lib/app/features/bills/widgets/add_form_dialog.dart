@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../models/form_unvalidated_state.dart';
+
 class AddFormDialog extends StatelessWidget {
   late final AddFormDialogCubit addFormDialogCubit;
   final BillsListCubit billsListCubit;
@@ -31,9 +33,9 @@ class AddFormDialog extends StatelessWidget {
         "* ${AppLocalizations.of(context)!.description}";
     final String hintDescription =
         AppLocalizations.of(context)!.hintDescription;
-
     final String confirmText = AppLocalizations.of(context)!.confirm;
     final String cancelText = AppLocalizations.of(context)!.cancel;
+
     return Dialog(
       child: BlocBuilder<AddFormDialogCubit, AddFormDialogState>(
           bloc: addFormDialogCubit,
@@ -64,7 +66,7 @@ class AddFormDialog extends StatelessWidget {
                           children: [
                             Text(
                               prinipalTitle,
-                              style: TextStyle(fontSize: titleSize),
+                              style: const TextStyle(fontSize: titleSize),
                             ),
                             AddFormInput(
                               labelText: labelName,
@@ -73,10 +75,13 @@ class AddFormDialog extends StatelessWidget {
                               textInputType: TextInputType.name,
                               textEditingController:
                                   addFormDialogCubit.nameInputController,
-                              errorText:
-                                  (state is UnvalidatedAddFormDialogState)
-                                      ? state.nameError
-                                      : null,
+                              unvalidatedType: (state
+                                      is UnvalidatedAddFormDialogState)
+                                  ? state.unvalidatedTypes
+                                          .contains(UnvalidatedTypes.nameBlank)
+                                      ? UnvalidatedTypes.nameBlank
+                                      : null
+                                  : null,
                             ),
                             AddFormInput(
                               labelText: labelValue,
@@ -85,10 +90,16 @@ class AddFormDialog extends StatelessWidget {
                               textInputType: TextInputType.number,
                               textEditingController:
                                   addFormDialogCubit.valueInputController,
-                              errorText:
-                                  (state is UnvalidatedAddFormDialogState)
-                                      ? state.valueError
-                                      : null,
+                              unvalidatedType: (state
+                                      is UnvalidatedAddFormDialogState)
+                                  ? state.unvalidatedTypes
+                                          .contains(UnvalidatedTypes.valueBlank)
+                                      ? UnvalidatedTypes.valueBlank
+                                      : state.unvalidatedTypes.contains(
+                                              UnvalidatedTypes.valueNotNumeric)
+                                          ? UnvalidatedTypes.valueNotNumeric
+                                          : null
+                                  : null,
                             ),
                             AddFormInput(
                               labelText: labelDate,
@@ -101,10 +112,13 @@ class AddFormDialog extends StatelessWidget {
                               },
                               textEditingController:
                                   addFormDialogCubit.dueDateInputController,
-                              errorText:
-                                  (state is UnvalidatedAddFormDialogState)
-                                      ? state.dateError
-                                      : null,
+                              unvalidatedType: (state
+                                      is UnvalidatedAddFormDialogState)
+                                  ? state.unvalidatedTypes
+                                          .contains(UnvalidatedTypes.dateBlank)
+                                      ? UnvalidatedTypes.dateBlank
+                                      : null
+                                  : null,
                             ),
                             AddFormInput(
                               labelText: labelDescription,
@@ -122,16 +136,14 @@ class AddFormDialog extends StatelessWidget {
                                   padding: const EdgeInsets.all(16.0),
                                   child: TextButton(
                                       onPressed: () =>
-                                          addFormDialogCubit.confirmAddBill(
-                                              context), //TODO mudar isso pra um listener
+                                          addFormDialogCubit.confirmAddBill(),
                                       child: Text(confirmText)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: TextButton(
-                                      onPressed: () =>
-                                          addFormDialogCubit.closeDialog(
-                                              context), //TODO mudar isso pra um listener
+                                      onPressed: () => addFormDialogCubit
+                                          .closeDialog(context),
                                       child: Text(cancelText)),
                                 ),
                               ],

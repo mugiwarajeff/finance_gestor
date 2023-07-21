@@ -1,10 +1,13 @@
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_states.dart';
 import 'package:finance_gestor/app/features/configurations/models/available_locale.dart';
+import 'package:finance_gestor/app/shared/shared_prefferences/shared_dark_theme.dart';
+import 'package:finance_gestor/app/shared/shared_prefferences/shared_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConfigurationsCubit extends Cubit {
-  bool darkTheme = false;
+  final SharedDarkTheme _sharedDarkTheme = SharedDarkTheme();
+  final SharedLocale _sharedLocale = SharedLocale();
 
   List<AvailableLocale> availableLocales = [
     AvailableLocale(
@@ -20,20 +23,34 @@ class ConfigurationsCubit extends Cubit {
     )
   ];
 
-  late Locale locale;
+  bool _darkTheme = false;
+
+  late Locale _locale;
 
   ConfigurationsCubit() : super(InitialConfigurationsState()) {
-    locale = availableLocales.first.locale;
-    emit(LoadedConfigurationsState(darkTheme: false, locale: locale));
+    _loadConfigs().then(
+      (_) => emit(
+          LoadedConfigurationsState(darkTheme: _darkTheme, locale: _locale)),
+    );
+  }
+
+  Future<void> _loadConfigs() async {
+    _darkTheme = await _sharedDarkTheme.getLastDarkTheme();
+    _locale = await _sharedLocale.getLastLocale();
+
+    print(_darkTheme);
+    print(_locale);
   }
 
   void setDarkTheme(bool newValue) {
-    darkTheme = newValue;
-    emit(LoadedConfigurationsState(darkTheme: darkTheme, locale: locale));
+    _darkTheme = newValue;
+    _sharedDarkTheme.setLastDarkTheme(_darkTheme);
+    emit(LoadedConfigurationsState(darkTheme: _darkTheme, locale: _locale));
   }
 
   void setLocale(Locale newLocale) {
-    locale = newLocale;
-    emit(LoadedConfigurationsState(darkTheme: darkTheme, locale: locale));
+    _locale = newLocale;
+    _sharedLocale.setLastLocale(_locale);
+    emit(LoadedConfigurationsState(darkTheme: _darkTheme, locale: _locale));
   }
 }

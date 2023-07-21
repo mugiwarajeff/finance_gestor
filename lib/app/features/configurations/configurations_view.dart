@@ -24,44 +24,50 @@ class ConfigurationsView extends StatelessWidget {
       body: ListView(children: [
         BlocBuilder(
           bloc: configurationsCubit,
-          builder: (context, state) => Card(
-              child: ListTile(
-            title: Text(themeSwitchText),
-            leading: state is LoadedConfigurationsState
-                ? (Icon(configurationsCubit.darkTheme
-                    ? darkModeIcon
-                    : lightModeIcon))
-                : null,
-            trailing: Switch(
-              value: configurationsCubit.darkTheme,
-              onChanged: (value) => configurationsCubit.setDarkTheme(value),
-            ),
-          )),
+          builder: (context, state) {
+            if (state is LoadedConfigurationsState) {
+              return Card(
+                  child: ListTile(
+                title: Text(themeSwitchText),
+                leading: Icon(state.darkTheme ? darkModeIcon : lightModeIcon),
+                trailing: Switch(
+                  value: state.darkTheme,
+                  onChanged: (value) => configurationsCubit.setDarkTheme(value),
+                ),
+              ));
+            } else {
+              return Container();
+            }
+          },
         ),
         BlocBuilder(
           bloc: configurationsCubit,
-          builder: (context, state) => Card(
-              child: ListTile(
-            title: Text(languageSwitchText),
-            leading: Icon(flagIcon),
-            trailing: DropdownButtonHideUnderline(
-              child: DropdownButton<Locale>(
-                value: state is LoadedConfigurationsState
-                    ? configurationsCubit.locale
-                    : null,
-                items: configurationsCubit.availableLocales
-                    .map((locale) => DropdownMenuItem(
-                          value: locale.locale,
-                          child: Image.asset(
-                            locale.path,
-                            height: flagSize,
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (value) => configurationsCubit.setLocale(value!),
-              ),
-            ),
-          )),
+          builder: (context, state) {
+            if (state is LoadedConfigurationsState) {
+              return Card(
+                  child: ListTile(
+                title: Text(languageSwitchText),
+                leading: Icon(flagIcon),
+                trailing: DropdownButtonHideUnderline(
+                  child: DropdownButton<Locale>(
+                    value: state.locale,
+                    items: configurationsCubit.availableLocales
+                        .map((locale) => DropdownMenuItem(
+                              value: locale.locale,
+                              child: Image.asset(
+                                locale.path,
+                                height: flagSize,
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (value) => configurationsCubit.setLocale(value!),
+                  ),
+                ),
+              ));
+            } else {
+              return Container();
+            }
+          },
         ),
       ]),
     );

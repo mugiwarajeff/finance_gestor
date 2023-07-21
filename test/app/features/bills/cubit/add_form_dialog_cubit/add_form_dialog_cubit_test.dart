@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_cubit.dart';
 import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
+import 'package:finance_gestor/app/features/bills/models/form_unvalidated_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'mocks/bills_list_cubit_mock.dart';
@@ -11,21 +13,23 @@ void main() {
     final BillsListCubitMock billsListCubitMock = BillsListCubitMock();
     // ignore: unused_local_variable
     final UnvalidatedAddFormDialogState unvalidatedAddFormDialogStateFull =
-        UnvalidatedAddFormDialogState(
-            nameError: "Name is Blank",
-            dateError: "Date is Blank",
-            valueError: "Value is Blank");
+        UnvalidatedAddFormDialogState(unvalidatedTypes: const [
+      UnvalidatedTypes.nameBlank,
+      UnvalidatedTypes.valueBlank,
+      UnvalidatedTypes.dateBlank
+    ]);
 
     final UnvalidatedAddFormDialogState
         unvalidatedAddFormDialogStateWithoutName =
-        UnvalidatedAddFormDialogState(nameError: "Name is Blank");
+        UnvalidatedAddFormDialogState(
+            unvalidatedTypes: const [UnvalidatedTypes.nameBlank]);
 
     final UnvalidatedAddFormDialogState
         unvalidatedAddFormDialogStateWithoutNameAndDate =
-        UnvalidatedAddFormDialogState(
-      nameError: "Name is Blank",
-      dateError: "Date is Blank",
-    );
+        UnvalidatedAddFormDialogState(unvalidatedTypes: const [
+      UnvalidatedTypes.nameBlank,
+      UnvalidatedTypes.dateBlank
+    ]);
 
     setUp(() {
       addFormDialogCubit =

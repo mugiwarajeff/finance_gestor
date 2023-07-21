@@ -1,4 +1,5 @@
 import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
+import 'package:finance_gestor/app/features/bills/models/form_unvalidated_state.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog.dart';
 import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ void main() {
             widget.hintText == expectedNameHint &&
             widget.icon == expectNameIcon &&
             widget.textInputType == expectedNameInputType &&
-            widget.errorText == null) {
+            widget.unvalidatedType == null) {
           return true;
         }
       }
@@ -67,7 +68,7 @@ void main() {
             widget.hintText == expectedValueHint &&
             widget.icon == expectValueIcon &&
             widget.textInputType == expectedValueInputType &&
-            widget.errorText == null) {
+            widget.unvalidatedType == null) {
           return true;
         }
       }
@@ -96,7 +97,7 @@ void main() {
             widget.hintText == expectedDuedateHint &&
             widget.icon == expectDuedateIcon &&
             widget.textInputType == expectedDuedateInputType &&
-            widget.errorText == null) {
+            widget.unvalidatedType == null) {
           return true;
         }
       }
@@ -118,19 +119,19 @@ void main() {
     const String expectedNameLabel = "* Name";
     const String expectedNameHint = "Insert the name of bill";
     const IconData expectNameIcon = Icons.abc;
-    const String expectedNameErros = "Name is Blank";
+    const UnvalidatedTypes expectedNameErros = UnvalidatedTypes.nameBlank;
     const TextInputType expectedNameInputType = TextInputType.name;
 
     const String expectedValueLabel = "* Value";
     const String expectedValueHint = "Inser the value of bill";
     const IconData expectValueIcon = Icons.monetization_on_outlined;
     const TextInputType expectedValueInputType = TextInputType.number;
-    const String expectedValueError = "Value is Blank";
+    const UnvalidatedTypes expectedValueError = UnvalidatedTypes.valueBlank;
 
     const String expectedDuedateLabel = "* Due Date";
     const String expectedDuedateHint = "Insert the Due Date of Bill";
     const IconData expectDuedateIcon = Icons.calendar_month;
-    const String expectedDueDateError = "Date is Blank";
+    const UnvalidatedTypes expectedDueDateError = UnvalidatedTypes.dateBlank;
     const TextInputType expectedDuedateInputType = TextInputType.datetime;
 
     const String confirmText = "Confirm";
@@ -148,7 +149,7 @@ void main() {
             widget.hintText == expectedNameHint &&
             widget.icon == expectNameIcon &&
             widget.textInputType == expectedNameInputType &&
-            widget.errorText == expectedNameErros) {
+            widget.unvalidatedType == expectedNameErros) {
           return true;
         }
       }
@@ -162,7 +163,7 @@ void main() {
             widget.hintText == expectedValueHint &&
             widget.icon == expectValueIcon &&
             widget.textInputType == expectedValueInputType &&
-            widget.errorText == expectedValueError) {
+            widget.unvalidatedType == expectedValueError) {
           return true;
         }
       }
@@ -177,7 +178,7 @@ void main() {
             widget.hintText == expectedDuedateHint &&
             widget.icon == expectDuedateIcon &&
             widget.textInputType == expectedDuedateInputType &&
-            widget.errorText == expectedDueDateError) {
+            widget.unvalidatedType == expectedDueDateError) {
           return true;
         }
       }

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../models/form_unvalidated_state.dart';
+
 abstract class AddFormDialogState extends Equatable {
   @override
   List<Object?> get props => [];
@@ -12,15 +14,12 @@ class LoadingAddFormDialogState extends AddFormDialogState {}
 class LoadedAddFormDialogState extends AddFormDialogState {}
 
 class UnvalidatedAddFormDialogState extends AddFormDialogState {
-  final String? nameError;
-  final String? valueError;
-  final String? dateError;
+  final List<UnvalidatedTypes> unvalidatedTypes;
 
-  UnvalidatedAddFormDialogState(
-      {this.dateError, this.nameError, this.valueError});
+  UnvalidatedAddFormDialogState({required this.unvalidatedTypes});
 
   @override
-  List<Object?> get props => [nameError, valueError, dateError];
+  List<Object?> get props => [...unvalidatedTypes];
 }
 
 class SentState extends AddFormDialogState {}

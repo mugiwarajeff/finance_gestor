@@ -19,26 +19,29 @@ class MyApp extends StatelessWidget {
     final configurationsCubit = BlocProvider.of<ConfigurationsCubit>(context);
 
     return BlocBuilder(
-      bloc: configurationsCubit,
-      builder: (context, state) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        theme: state is LoadedConfigurationsState
-            ? (state.darkTheme
-                ? appTheme.themeDataDark
-                : appTheme.themeDataLight)
-            : null,
-        locale: state is LoadedConfigurationsState ? state.locale : null,
-        routes: {
-          "/": (context) => HomeView(),
-          "/bills": (context) => const BillsView(),
-          "/bills/edit": (context) => BillsEdit(),
-          "/dashboards": (context) => const DashboardsView(),
-          "/configurations": (context) => const ConfigurationsView()
-        },
-        initialRoute: "/",
-      ),
-    );
+        bloc: configurationsCubit,
+        builder: (context, state) {
+          if (state is LoadedConfigurationsState) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              theme: state.darkTheme
+                  ? appTheme.themeDataDark
+                  : appTheme.themeDataLight,
+              locale: state.locale,
+              routes: {
+                "/": (context) => HomeView(),
+                "/bills": (context) => const BillsView(),
+                "/bills/edit": (context) => BillsEdit(),
+                "/dashboards": (context) => const DashboardsView(),
+                "/configurations": (context) => const ConfigurationsView()
+              },
+              initialRoute: "/",
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }
