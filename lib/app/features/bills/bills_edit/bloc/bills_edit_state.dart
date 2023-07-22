@@ -15,7 +15,8 @@ class LoadedBillEditState extends BillEditState {
   LoadedBillEditState({required this.bill}) {
     nameController = TextEditingController(text: bill.name);
     valueController = TextEditingController(text: bill.value.toString());
-    dateController = TextEditingController(text: bill.dueDate.toString());
+    dateController = TextEditingController(
+        text: "${bill.dueDate.day}/${bill.dueDate.month}/${bill.dueDate.year}");
     descriptionController = TextEditingController(text: bill.description);
   }
 }
