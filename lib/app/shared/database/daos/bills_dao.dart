@@ -1,5 +1,6 @@
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../../features/bills/bills_view/models/bill.dart';
 
 class BillsDAO {
   static const String _tableName = "bills";

@@ -1,6 +1,7 @@
-import 'package:finance_gestor/app/features/bills/models/form_unvalidated_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../models/form_unvalidated_state.dart';
 
 class AddFormInput extends StatelessWidget {
   final String hintText;

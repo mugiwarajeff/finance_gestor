@@ -9,7 +9,7 @@ class ConfirmDialog extends StatelessWidget {
     final String titleText = AppLocalizations.of(context)!.areYouSure;
     const IconData icon = Icons.warning;
     const double iconSize = 64;
-    Color iconColor = Theme.of(context).primaryColor;
+    Color iconColor = Theme.of(context).colorScheme.onPrimaryContainer;
     final String contentText = AppLocalizations.of(context)!.areYouSureText;
     final String deleteText = AppLocalizations.of(context)!.delete;
     final String cancelText = AppLocalizations.of(context)!.cancel;

@@ -1,11 +1,12 @@
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bills_list/empty_page.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bills_list/error_dialog.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubits/bills_list/bills_list_states.dart';
 import 'bill_card.dart';
+import 'bills_list/empty_page.dart';
+import 'bills_list/error_dialog.dart';
 
 class BillsList extends StatelessWidget {
   final BillsListCubit billsListCubit;
@@ -13,8 +14,6 @@ class BillsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    billsListCubit.loadBills();
-
     return BlocListener<BillsListCubit, BillsListState>(
       bloc: billsListCubit,
       listener: (context, state) {

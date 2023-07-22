@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_gestor/app/features/bills/models/bill_state.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../models/bill_state.dart';
 
 abstract class CardState extends Equatable {
   @override

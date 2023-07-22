@@ -35,6 +35,14 @@
     "unknownError":"Unknown Error",
     "erroToObtain":"Error to Obtain",
     "errorToUpdate":"Error to Update",
-    "billsEdit": "Bills Edit"
-
+    "billsEdit": "Bills Edit",
+    "currency": "{value}",
+    "@currency": {
+        "placeholders": {
+            "value": {
+                "type": "double",
+                "format": "simpleCurrency"
+            }
+        }
+    }
 }

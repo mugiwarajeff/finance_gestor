@@ -1,6 +1,7 @@
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/error_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../cubits/bills_list/error_types.dart';
 
 class ErrorDialog extends StatelessWidget {
   final IconData errorIcon = Icons.error;

@@ -35,5 +35,14 @@
     "unknownError":"Error desconocido",
     "erroToObtain":"Error al obtener datos",
     "errorToUpdate":"Error al actualizar", 
-    "billsEdit": "Edición de cuentas"
+    "billsEdit": "Edición de cuentas",
+    "currency": "{value}",
+    "@currency": {
+        "placeholders": {
+            "value": {
+                "type": "double",
+                "format": "simpleCurrency"
+            }
+        }
+    }
 }

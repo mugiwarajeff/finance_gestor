@@ -1,12 +1,11 @@
-import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_cubit.dart';
-import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../models/form_unvalidated_state.dart';
+import '../../cubits/add_form_dialog/add_form_dialog_cubit.dart';
+import '../../cubits/add_form_dialog/add_form_dialog_states.dart';
+import '../../cubits/bills_list/bills_list_bloc.dart';
+import '../../models/form_unvalidated_state.dart';
+import 'add_form_dialog/add_form_input.dart';
 
 class AddFormDialog extends StatelessWidget {
   late final AddFormDialogCubit addFormDialogCubit;
@@ -18,7 +17,7 @@ class AddFormDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.of(context).size.height;
-    final double dialogSize = screenSize * 0.7;
+    //final double dialogSize = screenSize * 0.7;
 
     final String prinipalTitle = AppLocalizations.of(context)!.addingBill;
     const double titleSize = 24;
@@ -56,7 +55,6 @@ class AddFormDialog extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                    height: dialogSize,
                     width: double.infinity,
                     child: SingleChildScrollView(
                       child: Padding(

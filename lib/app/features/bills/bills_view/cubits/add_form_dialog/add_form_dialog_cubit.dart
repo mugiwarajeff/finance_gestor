@@ -1,11 +1,12 @@
-import 'package:finance_gestor/app/features/bills/cubits/add_form_dialog/add_form_dialog_states.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/add_form_dialog/add_form_dialog_states.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/bill.dart';
 import '../../models/form_unvalidated_state.dart';
+import '../bills_list/bills_list_bloc.dart';
 
 class AddFormDialogCubit extends Cubit<AddFormDialogState> {
   final BillsListCubit billsListCubit;

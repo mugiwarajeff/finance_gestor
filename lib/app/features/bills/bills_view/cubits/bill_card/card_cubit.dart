@@ -1,8 +1,9 @@
-import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_state.dart';
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
-import 'package:finance_gestor/app/features/bills/models/bill_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../models/bill.dart';
+import '../../models/bill_state.dart';
+import 'card_state.dart';
 
 class CardCubit extends Cubit<CardState> {
   final LoadedCardState _paidCardState = LoadedCardState(

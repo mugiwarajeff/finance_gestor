@@ -1,12 +1,12 @@
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/error_types.dart';
 import 'package:finance_gestor/app/shared/database/daos/bills_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../models/bill.dart';
-import '../../widgets/add_form_dialog.dart';
+import '../../widgets/bills_view/add_form_dialog.dart';
+import 'bills_list_states.dart';
+import 'error_types.dart';
 
 class BillsListCubit extends Cubit<BillsListState> {
   final List<Bill> _bills = [];
@@ -14,10 +14,10 @@ class BillsListCubit extends Cubit<BillsListState> {
 
   BillsListCubit({required this.billsDAO}) : super(BillsListInitial()) {
     emit(BillsListLoading());
-    loadBills();
+    _loadBills();
   }
 
-  Future<void> loadBills() async {
+  Future<void> _loadBills() async {
     try {
       await Future.delayed(const Duration(seconds: 1));
       _bills.clear();

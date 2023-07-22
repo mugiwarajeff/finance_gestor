@@ -14,6 +14,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar:
             AppBar(title: Text(widget.homeController.getHomeTilte(context))),
         drawer: const DrawerView(),

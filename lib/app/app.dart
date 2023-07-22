@@ -1,5 +1,5 @@
-import 'package:finance_gestor/app/features/bills/bills_edit.dart';
-import 'package:finance_gestor/app/features/bills/bills_view.dart';
+import 'package:finance_gestor/app/features/bills/bills_edit/bills_edit.dart';
+
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_cubit.dart';
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_states.dart';
 import 'package:finance_gestor/app/features/configurations/configurations_view.dart';
@@ -9,6 +9,8 @@ import 'package:finance_gestor/app/shared/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'features/bills/bills_view/bills_view.dart';
 
 class MyApp extends StatelessWidget {
   final AppTheme appTheme = AppTheme();
@@ -33,7 +35,6 @@ class MyApp extends StatelessWidget {
               routes: {
                 "/": (context) => HomeView(),
                 "/bills": (context) => const BillsView(),
-                "/bills/edit": (context) => BillsEdit(),
                 "/dashboards": (context) => const DashboardsView(),
                 "/configurations": (context) => const ConfigurationsView()
               },

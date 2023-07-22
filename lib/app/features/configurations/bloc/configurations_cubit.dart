@@ -37,9 +37,6 @@ class ConfigurationsCubit extends Cubit {
   Future<void> _loadConfigs() async {
     _darkTheme = await _sharedDarkTheme.getLastDarkTheme();
     _locale = await _sharedLocale.getLastLocale();
-
-    print(_darkTheme);
-    print(_locale);
   }
 
   void setDarkTheme(bool newValue) {

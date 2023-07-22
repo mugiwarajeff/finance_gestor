@@ -1,11 +1,14 @@
-import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_cubit.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bill_card/card_state.dart';
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bill_card/card_trailing.dart';
+import 'package:finance_gestor/app/features/bills/bills_edit/bills_edit.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+
 import 'package:finance_gestor/app/shared/widgets/confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubits/bill_card/card_cubit.dart';
+import '../../cubits/bill_card/card_state.dart';
+import 'bill_card/card_trailing.dart';
 
 class BillCard extends StatelessWidget {
   final double iconSize = 30;
@@ -26,14 +29,20 @@ class BillCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final String dismissText = AppLocalizations.of(context)!.deleteBill;
     const double rightLeft = 16;
-    const Color dismissItemColor = Colors.white;
+
+    final Color deleteColor = Theme.of(context).colorScheme.errorContainer;
+    final Color textDeleteColor =
+        Theme.of(context).colorScheme.onErrorContainer;
+    final Color iconTertiaryColor = Theme.of(context).colorScheme.tertiary;
 
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed("/bills/edit"),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => BillsEdit(bill: bill),
+      )),
       child: Dismissible(
         key: dismissibleKey,
         background: Container(
-            color: Colors.red,
+            color: deleteColor,
             child: Padding(
               padding: const EdgeInsets.only(right: rightLeft),
               child: Row(
@@ -42,14 +51,14 @@ class BillCard extends StatelessWidget {
                 children: [
                   Text(
                     dismissText,
-                    style: TextStyle(color: dismissItemColor),
+                    style: TextStyle(color: textDeleteColor),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
-                  const Icon(
+                  Icon(
                     Icons.delete,
-                    color: dismissItemColor,
+                    color: textDeleteColor,
                   ),
                 ],
               ),
@@ -68,14 +77,15 @@ class BillCard extends StatelessWidget {
             child: Align(
           alignment: Alignment.center,
           child: ListTile(
-            title: Text(
-                "R\$ ${bill.value.toStringAsFixed(2).replaceAll(".", ",")}"),
+            title: Text(AppLocalizations.of(context)!.currency(bill
+                .value)), //"R\$ ${bill.value.toStringAsFixed(2).replaceAll(".", ",")}"
             subtitle: Text(bill.name),
             leading: SizedBox(
               height: double.infinity,
               child: Icon(
                 Icons.monetization_on,
                 size: iconSize,
+                color: iconTertiaryColor,
               ),
             ),
             trailing: BlocBuilder<CardCubit, CardState>(
