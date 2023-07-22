@@ -1,3 +1,4 @@
+import 'package:finance_gestor/app/features/drawer/widgets/drawer_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -8,27 +9,42 @@ class DrawerView extends StatelessWidget {
     final String configurationsText =
         AppLocalizations.of(context)!.configurations;
 
-    return NavigationDrawer(
-      onDestinationSelected: (value) {
+    final String donationText = AppLocalizations.of(context)!.buyMePizza;
+
+    return Drawer(
+      child: Column(children: [
+        const DrawerHeader(
+            child: CircleAvatar(
+          maxRadius: 60,
+          minRadius: 60,
+          child: Icon(Icons.person, size: 64),
+        )),
+        DrawerItem(
+            titleText: configurationsText,
+            icon: Icons.settings,
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed("/configurations");
+            }),
+        DrawerItem(
+            titleText: donationText,
+            icon: Icons.local_pizza,
+            onTap: () => print("pizza")),
+      ]),
+    );
+  }
+}
+
+/**
+ * onDestinationSelected: (value) {
         switch (value) {
           case 0:
             Navigator.pop(context);
             Navigator.of(context).pushNamed("/configurations");
             break;
+          case 1:
+            print("By me a pizza");
+            break;
         }
       },
-      children: [
-        const DrawerHeader(
-            child: CircleAvatar(
-          maxRadius: 10,
-          minRadius: 10,
-          child: Icon(Icons.person, size: 64),
-        )),
-        NavigationDrawerDestination(
-          icon: const Icon(Icons.settings),
-          label: Text(configurationsText),
-        )
-      ],
-    );
-  }
-}
+ */

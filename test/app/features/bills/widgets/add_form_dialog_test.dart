@@ -1,7 +1,7 @@
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/models/form_unvalidated_state.dart';
-import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog.dart';
-import 'package:finance_gestor/app/features/bills/widgets/add_form_dialog/add_form_input.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/form_unvalidated_state.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/add_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

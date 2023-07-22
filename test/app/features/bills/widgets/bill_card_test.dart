@@ -1,6 +1,6 @@
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bill_card.dart';
-import 'package:finance_gestor/app/features/bills/widgets/bill_card/card_trailing.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bill_card.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bill_card/card_trailing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

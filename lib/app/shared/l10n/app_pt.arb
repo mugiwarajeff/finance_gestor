@@ -1,4 +1,13 @@
 {
+    "currency": "{value}",
+    "@currency": {
+        "placeholders": {
+            "value": {
+                "type": "double",
+                "format": "simpleCurrency"
+            }
+        }
+    },
     "helloWorld": "Olá Mundo",
     "configurations": "Configurações",
     "switchTheme" : "Trocar Tema",
@@ -36,13 +45,5 @@
     "erroToObtain":"Erro ao obter dados",
     "errorToUpdate":"Erro ao atualizar",
     "billsEdit": "Edição de contas",
-    "currency": "{value}",
-    "@currency": {
-        "placeholders": {
-            "value": {
-                "type": "double",
-                "format": "simpleCurrency"
-            }
-        }
-    }
+    "buyMePizza": "Me pague uma pizza"
 }

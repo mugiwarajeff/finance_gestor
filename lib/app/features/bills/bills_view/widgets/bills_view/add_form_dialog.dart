@@ -17,7 +17,7 @@ class AddFormDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.of(context).size.height;
-    //final double dialogSize = screenSize * 0.7;
+    final double dialogSize = screenSize * 0.7;
 
     final String prinipalTitle = AppLocalizations.of(context)!.addingBill;
     const double titleSize = 24;
@@ -56,6 +56,7 @@ class AddFormDialog extends StatelessWidget {
                 },
                 child: SizedBox(
                     width: double.infinity,
+                    height: dialogSize,
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),

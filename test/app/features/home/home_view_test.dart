@@ -1,5 +1,5 @@
-import 'package:finance_gestor/app/features/bills/bills_view.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/bills_view.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/dashboards/dashboards_view.dart';
 import 'package:finance_gestor/app/features/home/home_view.dart';
 import 'package:flutter/material.dart';

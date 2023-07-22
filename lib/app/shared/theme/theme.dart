@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   ThemeData themeDataLight = ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: Colors.yellow,
-      brightness: Brightness.light,
-      appBarTheme: AppBarTheme(
-        backgroundColor: lightColorScheme.primaryContainer,
-        titleTextStyle:
-            TextStyle(color: lightColorScheme.onPrimaryContainer, fontSize: 18),
-      ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: lightColorScheme.primaryContainer,
-        unselectedItemColor: lightColorScheme.onPrimaryContainer,
-        selectedItemColor: lightColorScheme.onPrimaryContainer,
-      ),
-      navigationDrawerTheme: NavigationDrawerThemeData(
-          indicatorColor: lightColorScheme.secondaryContainer,
-          iconTheme: MaterialStateProperty.all(
-              IconThemeData(color: lightColorScheme.onSecondaryContainer)),
-          labelTextStyle: MaterialStateProperty.all(
-              TextStyle(color: lightColorScheme.onSecondaryContainer))));
+    useMaterial3: true,
+    colorSchemeSeed: Colors.yellow,
+    brightness: Brightness.light,
+    appBarTheme: AppBarTheme(
+      backgroundColor: lightColorScheme.primaryContainer,
+      titleTextStyle:
+          TextStyle(color: lightColorScheme.onPrimaryContainer, fontSize: 18),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: lightColorScheme.primaryContainer,
+      unselectedItemColor: lightColorScheme.onPrimaryContainer,
+      selectedItemColor: lightColorScheme.onPrimaryContainer,
+    ),
+    navigationDrawerTheme: NavigationDrawerThemeData(
+        indicatorColor: lightColorScheme.secondaryContainer,
+        iconTheme: MaterialStateProperty.all(
+            IconThemeData(color: lightColorScheme.onSecondaryContainer)),
+        labelTextStyle: MaterialStateProperty.all(
+            TextStyle(color: lightColorScheme.onSecondaryContainer))),
+  );
 
   ThemeData themeDataDark = ThemeData(
     useMaterial3: true,

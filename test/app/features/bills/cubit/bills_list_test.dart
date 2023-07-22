@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/cubits/bills_list/bills_list_states.dart';
-import 'package:finance_gestor/app/features/bills/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_states.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
