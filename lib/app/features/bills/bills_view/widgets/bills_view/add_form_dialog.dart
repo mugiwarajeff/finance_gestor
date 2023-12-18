@@ -1,18 +1,22 @@
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/input_type.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubits/add_form_dialog/add_form_dialog_cubit.dart';
 import '../../cubits/add_form_dialog/add_form_dialog_states.dart';
 import '../../cubits/bills_list/bills_list_bloc.dart';
-import '../../models/form_unvalidated_state.dart';
 import 'add_form_dialog/add_form_input.dart';
 
 class AddFormDialog extends StatelessWidget {
   late final AddFormDialogCubit addFormDialogCubit;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final BillsListCubit billsListCubit;
   AddFormDialog({super.key, required this.billsListCubit}) {
     addFormDialogCubit = AddFormDialogCubit(billsListCubit: billsListCubit);
   }
+
+  final Bill newBill = Bill.empty();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +49,7 @@ class AddFormDialog extends StatelessWidget {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is LoadedAddFormDialogState ||
-                state is UnvalidatedAddFormDialogState) {
+            } else if (state is LoadedAddFormDialogState) {
               return BlocListener<AddFormDialogCubit, AddFormDialogState>(
                 bloc: addFormDialogCubit,
                 listener: (context, state) {
@@ -60,94 +63,89 @@ class AddFormDialog extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              prinipalTitle,
-                              style: const TextStyle(fontSize: titleSize),
-                            ),
-                            AddFormInput(
-                              labelText: labelName,
-                              hintText: hintName,
-                              icon: Icons.abc,
-                              textInputType: TextInputType.name,
-                              textEditingController:
-                                  addFormDialogCubit.nameInputController,
-                              unvalidatedType: (state
-                                      is UnvalidatedAddFormDialogState)
-                                  ? state.unvalidatedTypes
-                                          .contains(UnvalidatedTypes.nameBlank)
-                                      ? UnvalidatedTypes.nameBlank
-                                      : null
-                                  : null,
-                            ),
-                            AddFormInput(
-                              labelText: labelValue,
-                              hintText: hintValue,
-                              icon: Icons.monetization_on_outlined,
-                              textInputType: TextInputType.number,
-                              textEditingController:
-                                  addFormDialogCubit.valueInputController,
-                              unvalidatedType: (state
-                                      is UnvalidatedAddFormDialogState)
-                                  ? state.unvalidatedTypes
-                                          .contains(UnvalidatedTypes.valueBlank)
-                                      ? UnvalidatedTypes.valueBlank
-                                      : state.unvalidatedTypes.contains(
-                                              UnvalidatedTypes.valueNotNumeric)
-                                          ? UnvalidatedTypes.valueNotNumeric
-                                          : null
-                                  : null,
-                            ),
-                            AddFormInput(
-                              labelText: labelDate,
-                              hintText: hintDate,
-                              icon: Icons.calendar_month,
-                              readOnly: true,
-                              textInputType: TextInputType.datetime,
-                              onTap: () async {
-                                addFormDialogCubit.getDatePicker(context);
-                              },
-                              textEditingController:
-                                  addFormDialogCubit.dueDateInputController,
-                              unvalidatedType: (state
-                                      is UnvalidatedAddFormDialogState)
-                                  ? state.unvalidatedTypes
-                                          .contains(UnvalidatedTypes.dateBlank)
-                                      ? UnvalidatedTypes.dateBlank
-                                      : null
-                                  : null,
-                            ),
-                            AddFormInput(
-                              labelText: labelDescription,
-                              hintText: hintDescription,
-                              icon: Icons.abc,
-                              textInputType: TextInputType.text,
-                              quantLine: 8,
-                              textEditingController:
-                                  addFormDialogCubit.descriptionInputController,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: TextButton(
-                                      onPressed: () =>
-                                          addFormDialogCubit.confirmAddBill(),
-                                      child: Text(confirmText)),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: TextButton(
-                                      onPressed: () => addFormDialogCubit
-                                          .closeDialog(context),
-                                      child: Text(cancelText)),
-                                ),
-                              ],
-                            )
-                          ],
+                        child: Form(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                prinipalTitle,
+                                style: const TextStyle(fontSize: titleSize),
+                              ),
+                              AddFormInput(
+                                  labelText: labelName,
+                                  hintText: hintName,
+                                  inputType: InputType.standard,
+                                  onChange: (newName) =>
+                                      newBill.name.value = newName,
+                                  icon: Icons.abc,
+                                  textInputType: TextInputType.name,
+                                  value: newBill.name),
+                              AddFormInput(
+                                labelText: labelValue,
+                                hintText: hintValue,
+                                inputType: InputType.standard,
+                                icon: Icons.monetization_on_outlined,
+                                textInputType: TextInputType.number,
+                                value: newBill.value,
+                                onChange: (newValue) => newBill.value.value =
+                                    double.tryParse(newValue) ?? 0,
+                              ),
+                              AddFormInput(
+                                  labelText: labelDate,
+                                  hintText: hintDate,
+                                  inputType: InputType.date,
+                                  icon: Icons.calendar_month,
+                                  readOnly: true,
+                                  textInputType: TextInputType.datetime,
+                                  value: newBill.dueDate,
+                                  onChange: (dateString) => newBill.dueDate
+                                      .value = DateTime.parse(dateString)),
+                              AddFormInput(
+                                labelText: labelDescription,
+                                hintText: hintDescription,
+                                inputType: InputType.standard,
+                                icon: Icons.abc,
+                                textInputType: TextInputType.text,
+                                value: newBill.description,
+                                onChange: (text) =>
+                                    newBill.description.value = text,
+                                quantLine: 8,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: TextButton(
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            addFormDialogCubit
+                                                .confirmAddBill(newBill);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  "(Fields are not Validated!)"),
+                                              backgroundColor: Colors.red,
+                                            ));
+                                          }
+                                        },
+                                        child: Text(confirmText)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: TextButton(
+                                        onPressed: () => addFormDialogCubit
+                                            .closeDialog(context),
+                                        child: Text(cancelText)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )),

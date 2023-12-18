@@ -1,64 +1,79 @@
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/input_type.dart';
+import 'package:finance_gestor/app/shared/value_object/value_object.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../models/form_unvalidated_state.dart';
 
 class AddFormInput extends StatelessWidget {
   final String hintText;
   final String labelText;
+  final TextInputType textInputType;
   final IconData icon;
-  final TextEditingController textEditingController;
   final int? quantLine;
-  final void Function()? onTap;
+  final void Function(dynamic)? onChange;
   final bool? readOnly;
-  final TextInputType? textInputType;
-  final UnvalidatedTypes? unvalidatedType;
 
-  const AddFormInput(
-      {super.key,
-      required this.hintText,
-      required this.labelText,
-      required this.icon,
-      required this.textEditingController,
-      this.quantLine,
-      this.onTap,
-      this.readOnly,
-      this.textInputType,
-      this.unvalidatedType});
+  final ValueObject value;
+  final InputType inputType;
+  late final TextEditingController textEditingController;
+
+  AddFormInput({
+    super.key,
+    required this.hintText,
+    required this.labelText,
+    required this.icon,
+    required this.value,
+    required this.inputType,
+    required this.textInputType,
+    this.onChange,
+    this.quantLine,
+    this.readOnly,
+  }) {
+    textEditingController = TextEditingController(text: value.value.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
-    String? selectUnvalidatedType() {
-      switch (unvalidatedType) {
-        case UnvalidatedTypes.nameBlank:
-          return AppLocalizations.of(context)!.nameIsBlank;
-
-        case UnvalidatedTypes.valueBlank:
-          return AppLocalizations.of(context)!.valueIsBlank;
-
-        case UnvalidatedTypes.valueNotNumeric:
-          return AppLocalizations.of(context)!.valueIsNotNumber;
-
-        case UnvalidatedTypes.dateBlank:
-          return AppLocalizations.of(context)!.dateIsBlank;
-
-        default:
-          return null;
-      }
-    }
-
-    return TextField(
+    return TextFormField(
+      controller: textEditingController,
       maxLines: quantLine,
-      onTap: onTap,
+      onTap: () => {
+        if (inputType == InputType.date)
+          {
+            showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(1980),
+              lastDate: DateTime(2050),
+              builder: (context, child) => SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      height: 500,
+                      child: child,
+                    ),
+                  ],
+                ),
+              ),
+            ).then((dateTime) {
+              if (dateTime != null) {
+                textEditingController.text =
+                    dateTime.toIso8601String().substring(0, 19);
+                value.value = dateTime;
+              }
+            })
+          }
+      },
       keyboardType: textInputType,
       readOnly: readOnly ?? false,
-      controller: textEditingController,
+      validator: (v) => value.validate(v),
+      onChanged: onChange,
       decoration: InputDecoration(
-          hintText: hintText,
-          icon: Icon(icon),
-          labelText: labelText,
-          alignLabelWithHint: true,
-          errorText: selectUnvalidatedType()),
+        hintText: hintText,
+        icon: Icon(icon),
+        labelText: labelText,
+        alignLabelWithHint: true,
+      ),
     );
   }
 }

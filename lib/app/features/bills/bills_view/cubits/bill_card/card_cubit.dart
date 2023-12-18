@@ -38,7 +38,7 @@ class CardCubit extends Cubit<CardState> {
   }
 
   void _verifyIfOverdue(Bill bill) {
-    if (DateTime.now().isAfter(bill.dueDate)) {
+    if (DateTime.now().isAfter(bill.dueDate.value)) {
       emit(_overdueCardState);
     } else {
       emit(_openCardState);

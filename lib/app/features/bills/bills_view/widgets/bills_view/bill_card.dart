@@ -1,4 +1,3 @@
-import 'package:finance_gestor/app/features/bills/bills_edit/bills_edit.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
 
 import 'package:finance_gestor/app/shared/widgets/confirm_dialog/confirm_dialog.dart';
@@ -36,9 +35,7 @@ class BillCard extends StatelessWidget {
     final Color iconTertiaryColor = Theme.of(context).colorScheme.tertiary;
 
     return InkWell(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BillsEdit(bill: bill),
-      )),
+      onTap: () {},
       child: Dismissible(
         key: dismissibleKey,
         background: Container(
@@ -77,9 +74,9 @@ class BillCard extends StatelessWidget {
             child: Align(
           alignment: Alignment.center,
           child: ListTile(
-            title: Text(AppLocalizations.of(context)!.currency(bill
+            title: Text(AppLocalizations.of(context)!.currency(bill.value
                 .value)), //"R\$ ${bill.value.toStringAsFixed(2).replaceAll(".", ",")}"
-            subtitle: Text(bill.name),
+            subtitle: Text(bill.name.value),
             leading: SizedBox(
               height: double.infinity,
               child: Icon(

@@ -30,7 +30,7 @@ class BillsListCubit extends Cubit<BillsListState> {
     }
   }
 
-  void addNewBill(Bill bill) async {
+  Future<void> addNewBill(Bill bill) async {
     emit(BillsListLoading());
     try {
       await billsDAO.insertBill(bill);

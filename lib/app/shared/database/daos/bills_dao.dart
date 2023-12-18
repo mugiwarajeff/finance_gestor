@@ -37,8 +37,8 @@ class BillsDAO {
   }
 
   Future<Bill?> deleteBill(Bill bill) async {
-    int quantDelete =
-        await database.delete(_tableName, where: "$_name = '${bill.name}'");
+    int quantDelete = await database.delete(_tableName,
+        where: "$_name = '${bill.name.value}'");
 
     if (quantDelete == 1) {
       return bill;
@@ -49,7 +49,7 @@ class BillsDAO {
 
   Future<Bill?> updateBill(Bill bill) async {
     int quantUpdate = await database.update(_tableName, bill.toJsonDB(),
-        where: "$_name = '${bill.name}' ");
+        where: "$_name = '${bill.name.value}' ");
 
     if (quantUpdate == 1) {
       return bill;
