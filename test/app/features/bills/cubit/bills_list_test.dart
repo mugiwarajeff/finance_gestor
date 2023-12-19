@@ -1,13 +1,15 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_states.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -21,15 +23,16 @@ void main() {
   group("Group of Bill List BLoC  test", () {
     setUp(() {
       billsListCubit = BillsListCubit(billsDAO: billsDAOMock);
-      bill = Bill(
+      bill = IsolatedBill(
           name: Name(value: "teste"),
           value: Value(value: 10),
           dueDate: DueDate(value: DateTime.now()),
+          category: BillCategory(id: 0, name: ""),
           description: my.Description(value: "teste teste"),
           paid: false);
 
       when(() => billsDAOMock.getAllBills())
-          .thenAnswer((invocation) async => [Bill.empty()]);
+          .thenAnswer((invocation) async => [IsolatedBill.empty()]);
 
       when(
         () => billsDAOMock.insertBill(bill),
@@ -45,7 +48,7 @@ void main() {
       build: () => billsListCubit,
       wait: const Duration(seconds: 3),
       expect: () => [
-        BillsListLoaded(bills: [Bill.empty()])
+        BillsListLoaded(bills: [IsolatedBill.empty()])
       ],
     );
 

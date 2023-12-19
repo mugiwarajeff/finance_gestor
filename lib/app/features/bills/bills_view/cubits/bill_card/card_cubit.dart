@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/bill.dart';
-import '../../models/bill_state.dart';
+import '../../models/interfaces/bill.dart';
+import '../../models/enuns/bill_state.dart';
 import 'card_state.dart';
 
 class CardCubit extends Cubit<CardState> {

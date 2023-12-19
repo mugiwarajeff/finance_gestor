@@ -2,7 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/add_form_dialog/add_form_dialog_cubit.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/add_form_dialog/add_form_dialog_states.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -20,7 +21,7 @@ void main() {
           AddFormDialogCubit(billsListCubit: billsListCubitMock);
 
       when(
-        () => billsDAOMock.insertBill(Bill.empty()),
+        () => billsDAOMock.insertBill(IsolatedBill.empty()),
       ).thenAnswer((invocation) async => 1);
     });
 
@@ -31,7 +32,7 @@ void main() {
     blocTest(
       "should emit the SentState() when confirm the bill",
       build: () => addFormDialogCubit,
-      act: (bloc) => bloc.confirmAddBill(Bill.empty()),
+      act: (bloc) => bloc.confirmAddBill(IsolatedBill.empty()),
       expect: () => [SentState()],
     );
 

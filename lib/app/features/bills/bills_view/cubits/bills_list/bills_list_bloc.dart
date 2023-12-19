@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../models/bill.dart';
+import '../../models/interfaces/bill.dart';
 import '../../widgets/bills_view/add_form_dialog.dart';
 import 'bills_list_states.dart';
 import 'error_types.dart';

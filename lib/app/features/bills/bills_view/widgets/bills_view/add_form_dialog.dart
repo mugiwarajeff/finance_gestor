@@ -1,4 +1,5 @@
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/input_type.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class AddFormDialog extends StatelessWidget {
     addFormDialogCubit = AddFormDialogCubit(billsListCubit: billsListCubit);
   }
 
-  final Bill newBill = Bill.empty();
+  final Bill newBill = IsolatedBill.empty();
 
   @override
   Widget build(BuildContext context) {

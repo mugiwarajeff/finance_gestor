@@ -1,6 +1,7 @@
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../../features/bills/bills_view/models/bill.dart';
+import '../../../features/bills/bills_view/models/interfaces/bill.dart';
 
 class BillsDAO {
   static const String _tableName = "bills";
@@ -31,7 +32,7 @@ class BillsDAO {
     List<Map<String, dynamic>> billsFromDB = await database.query(_tableName);
 
     List<Bill> billsToReturn =
-        billsFromDB.map((billJson) => Bill.fromJson(billJson)).toList();
+        billsFromDB.map((billJson) => IsolatedBill.fromJson(billJson)).toList();
 
     return billsToReturn;
   }

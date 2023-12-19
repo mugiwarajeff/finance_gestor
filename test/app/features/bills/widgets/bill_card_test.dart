@@ -1,6 +1,8 @@
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
@@ -12,10 +14,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  Bill bill = Bill(
+  Bill bill = IsolatedBill(
       name: Name(value: "teste"),
       value: Value(value: 23),
       dueDate: DueDate(value: DateTime.now()),
+      category: BillCategory(id: 0, name: ""),
       description: my.Description(value: "teste teste"),
       paid: false);
 

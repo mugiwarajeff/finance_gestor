@@ -1,7 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/bill_state.dart';
+import '../../../models/enuns/bill_state.dart';
 
 class CardTrailin extends StatelessWidget {
   final double cardHeight = 40;

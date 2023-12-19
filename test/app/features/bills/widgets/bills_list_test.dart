@@ -1,10 +1,12 @@
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bill_card.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bills_list.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +23,12 @@ void main() {
   setUp(() {
     billListCubit = BillsListCubit(billsDAO: billsDAOMock);
 
-    bill = Bill(
+    bill = IsolatedBill(
         name: Name(value: "teste"),
         dueDate: DueDate(value: DateTime.now()),
         paid: false,
         value: Value(value: 20.3),
+        category: BillCategory(id: 0, name: ""),
         description: my.Description(value: "teste"));
 
     when(

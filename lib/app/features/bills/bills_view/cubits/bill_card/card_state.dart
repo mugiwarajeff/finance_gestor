@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../models/bill_state.dart';
+import '../../models/enuns/bill_state.dart';
 
 abstract class CardState extends Equatable {
   @override

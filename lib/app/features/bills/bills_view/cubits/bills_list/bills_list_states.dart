@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../models/bill.dart';
+import '../../models/interfaces/bill.dart';
 import 'error_types.dart';
 
 abstract class BillsListState extends Equatable {

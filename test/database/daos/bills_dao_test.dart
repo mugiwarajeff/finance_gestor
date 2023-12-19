@@ -1,9 +1,11 @@
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:finance_gestor/app/shared/database/daos/bills_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,11 +13,12 @@ import 'package:mocktail/mocktail.dart';
 import '../../mocks/database_mock.dart';
 
 void main() {
-  final Bill billTest = Bill(
+  final Bill billTest = IsolatedBill(
       name: Name(value: "Riachuello"),
       paid: false,
       value: Value(value: 32.12),
       description: my.Description(value: "testes"),
+      category: BillCategory(id: 0, name: "name"),
       dueDate: DueDate(value: DateTime(2023, 7, 5)));
   final DatabaseMock databaseMock = DatabaseMock();
   late BillsDAO billsDAO;

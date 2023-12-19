@@ -1,4 +1,4 @@
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 
 import 'package:finance_gestor/app/shared/widgets/confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';

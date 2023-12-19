@@ -1,10 +1,12 @@
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bill_card/card_cubit.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -15,21 +17,24 @@ void main() {
     late Bill openBill;
 
     setUp(() {
-      paidBill = Bill(
+      paidBill = IsolatedBill(
           name: Name(value: "paid"),
           value: Value(value: 10),
           dueDate: DueDate(value: DateTime.now()),
           paid: true,
+          category: BillCategory(id: 0, name: ""),
           description: my.Description(value: "teste teste"));
-      overdueBill = Bill(
+      overdueBill = IsolatedBill(
           name: Name(value: "overdue"),
           value: Value(value: 10),
           dueDate: DueDate(value: DateTime(1900)),
+          category: BillCategory(id: 0, name: ""),
           description: my.Description(value: "teste teste"),
           paid: false);
-      openBill = Bill(
+      openBill = IsolatedBill(
           name: Name(value: "open"),
           value: Value(value: 10),
+          category: BillCategory(id: 0, name: ""),
           dueDate: DueDate(value: DateTime(3000)),
           description: my.Description(value: "teste teste"),
           paid: false);
