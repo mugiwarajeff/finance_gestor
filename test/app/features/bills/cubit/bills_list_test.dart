@@ -2,6 +2,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_states.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
+    as my;
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
+
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,11 +21,15 @@ void main() {
   group("Group of Bill List BLoC  test", () {
     setUp(() {
       billsListCubit = BillsListCubit(billsDAO: billsDAOMock);
-      bill =
-          Bill(name: "teste", value: 10, dueDate: DateTime.now(), paid: false);
+      bill = Bill(
+          name: Name(value: "teste"),
+          value: Value(value: 10),
+          dueDate: DueDate(value: DateTime.now()),
+          description: my.Description(value: "teste teste"),
+          paid: false);
 
       when(() => billsDAOMock.getAllBills())
-          .thenAnswer((invocation) async => []);
+          .thenAnswer((invocation) async => [Bill.empty()]);
 
       when(
         () => billsDAOMock.insertBill(bill),
@@ -33,8 +43,10 @@ void main() {
     blocTest(
       "should wait the loading and emit BillListLoading:[]",
       build: () => billsListCubit,
-      wait: const Duration(seconds: 2),
-      expect: () => [BillsListLoaded(bills: const [])],
+      wait: const Duration(seconds: 3),
+      expect: () => [
+        BillsListLoaded(bills: [Bill.empty()])
+      ],
     );
 
     blocTest("should add a new bill and return BillsListLoaded:[newBill]",

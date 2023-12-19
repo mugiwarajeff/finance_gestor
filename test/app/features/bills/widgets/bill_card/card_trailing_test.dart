@@ -2,7 +2,9 @@ import 'package:finance_gestor/app/features/bills/bills_view/cubits/bill_card/ca
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_state.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bill_card/card_trailing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   late LoadedCardState paidLoadedCardState;
@@ -27,10 +29,16 @@ void main() {
   testWidgets("Should show a cardTrailing with 70 of width and 40 of height ",
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: CardTrailin(
-        billStates: paidLoadedCardState.billStates,
-        principalColor: paidLoadedCardState.principalColor,
-        secondaryColor: paidLoadedCardState.secondaryColor,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      home: Scaffold(
+        body: CardTrailin(
+          billStates: paidLoadedCardState.billStates,
+          principalColor: paidLoadedCardState.principalColor,
+          secondaryColor: paidLoadedCardState.secondaryColor,
+        ),
       ),
     ));
 
@@ -95,10 +103,16 @@ void main() {
       "should show a cardTrailing with paid configuration for text and collor",
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: CardTrailin(
-        billStates: paidLoadedCardState.billStates,
-        principalColor: paidLoadedCardState.principalColor,
-        secondaryColor: paidLoadedCardState.secondaryColor,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      home: Scaffold(
+        body: CardTrailin(
+          billStates: paidLoadedCardState.billStates,
+          principalColor: paidLoadedCardState.principalColor,
+          secondaryColor: paidLoadedCardState.secondaryColor,
+        ),
       ),
     ));
 
@@ -141,10 +155,16 @@ void main() {
       "should show a cardTrailing with open configuration for text and collor",
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: CardTrailin(
-        billStates: openLoadedCardState.billStates,
-        principalColor: openLoadedCardState.principalColor,
-        secondaryColor: openLoadedCardState.secondaryColor,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      home: Scaffold(
+        body: CardTrailin(
+          billStates: openLoadedCardState.billStates,
+          principalColor: openLoadedCardState.principalColor,
+          secondaryColor: openLoadedCardState.secondaryColor,
+        ),
       ),
     ));
 
@@ -184,13 +204,19 @@ void main() {
   });
 
   testWidgets(
-      "should show a cardTrailing with paid configuration for text and collor",
+      "should show a cardTrailing with overdue configuration for text and collor",
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: CardTrailin(
-        billStates: overdueLoadedCardState.billStates,
-        principalColor: overdueLoadedCardState.principalColor,
-        secondaryColor: overdueLoadedCardState.secondaryColor,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate
+      ],
+      home: Scaffold(
+        body: CardTrailin(
+          billStates: overdueLoadedCardState.billStates,
+          principalColor: overdueLoadedCardState.principalColor,
+          secondaryColor: overdueLoadedCardState.secondaryColor,
+        ),
       ),
     ));
 

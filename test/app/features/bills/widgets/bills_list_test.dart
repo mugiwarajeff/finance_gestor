@@ -1,11 +1,17 @@
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
+    as my;
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bill_card.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/bills_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../mocks/bills_dao_mock.dart';
 
 void main() {
@@ -16,11 +22,11 @@ void main() {
     billListCubit = BillsListCubit(billsDAO: billsDAOMock);
 
     bill = Bill(
-        name: "teste",
-        dueDate: DateTime.now(),
+        name: Name(value: "teste"),
+        dueDate: DueDate(value: DateTime.now()),
         paid: false,
-        value: 20.3,
-        description: "teste");
+        value: Value(value: 20.3),
+        description: my.Description(value: "teste"));
 
     when(
       () => billsDAOMock.getAllBills(),
@@ -44,8 +50,13 @@ void main() {
     "Should show a ListView and a BillCard after adding a new bill",
     (WidgetTester tester) async {
       billListCubit.addNewBill(bill);
-      await tester.pumpWidget(
-          MaterialApp(home: BillsList(billsListCubit: billListCubit)));
+      await tester.pumpWidget(MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate
+        ],
+        home: Scaffold(body: BillsList(billsListCubit: billListCubit)),
+      ));
 
       Finder listViewFinder = find.byType(ListView);
       await tester.pump();

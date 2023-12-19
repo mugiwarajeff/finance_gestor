@@ -1,4 +1,9 @@
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
+    as my;
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/name.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/value.dart';
 import 'package:finance_gestor/app/shared/database/daos/bills_dao.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -7,11 +12,11 @@ import '../../mocks/database_mock.dart';
 
 void main() {
   final Bill billTest = Bill(
-      name: "Riachuello",
+      name: Name(value: "Riachuello"),
       paid: false,
-      value: 32.12,
-      description: "teste",
-      dueDate: DateTime(2023, 7, 5));
+      value: Value(value: 32.12),
+      description: my.Description(value: "testes"),
+      dueDate: DueDate(value: DateTime(2023, 7, 5)));
   final DatabaseMock databaseMock = DatabaseMock();
   late BillsDAO billsDAO;
   setUp(() {
@@ -22,7 +27,8 @@ void main() {
     ).thenAnswer((realInvocation) async => 1);
 
     when(
-      () => databaseMock.delete("bills", where: "name = '${billTest.name}'"),
+      () => databaseMock.delete("bills",
+          where: "name = '${billTest.name.value}'"),
     ).thenAnswer((realInvocation) async => 1);
 
     when(() => databaseMock.query(any()))

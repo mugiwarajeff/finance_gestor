@@ -20,7 +20,7 @@ class Bill extends Equatable {
       required this.paid});
 
   @override
-  List<Object?> get props => [name, value, description, dueDate, paid];
+  List<Object?> get props => [name.value, value.value, description.value, paid];
 
   Bill.empty()
       : name = Name(value: ""),
