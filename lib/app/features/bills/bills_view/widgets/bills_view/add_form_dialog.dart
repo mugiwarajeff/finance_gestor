@@ -1,6 +1,9 @@
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/bill_category.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/add_form_dropdown.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/input_type.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,6 +106,30 @@ class AddFormDialog extends StatelessWidget {
                                   value: newBill.dueDate,
                                   onChange: (dateString) => newBill.dueDate
                                       .value = DateTime.parse(dateString)),
+                              AddFormDropdown(
+                                label: "(Categoria)",
+                                value: newBill.category,
+                                hint: "Selecione Categoria",
+                                validatedValues: BillCategory
+                                    .availableCategories
+                                    .map((e) => e.value)
+                                    .toList(),
+                                icon: Icons.abc,
+                                onChange: (selectedCategory) =>
+                                    newBill.category.value = selectedCategory,
+                              ),
+                              Row(
+                                children: [
+                                  AddFormInput(
+                                      width: 100,
+                                      readOnly: newBill.category.value == "",
+                                      hintText: "(quantidade)",
+                                      labelText: "Limite Recorrencia",
+                                      value: newBill.value,
+                                      inputType: InputType.standard,
+                                      textInputType: TextInputType.number),
+                                ],
+                              ),
                               AddFormInput(
                                 labelText: labelDescription,
                                 hintText: hintDescription,

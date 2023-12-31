@@ -1,6 +1,5 @@
 import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../../../features/bills/bills_view/models/interfaces/bill.dart';
 
 class BillsDAO {
@@ -10,13 +9,17 @@ class BillsDAO {
   static const String _description = "description";
   static const String _dueDate = "dueDate";
   static const String _paid = "paid";
+  static const String _category = "category";
+  static const String _limitRecorrency = "limit_recorrency";
 
   static String billsSql = 'CREATE TABLE $_tableName ('
       '$_name TEXT PRIMARY KEY,'
       '$_value REAL,'
       '$_description TEXT,'
       '$_dueDate INTEGER,'
-      '$_paid INTEGER'
+      '$_paid INTEGER,'
+      '$_category TEXT,'
+      "$_limitRecorrency INTEGER"
       ')';
 
   late Database database;

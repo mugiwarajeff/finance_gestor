@@ -1,5 +1,5 @@
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/bill_category.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
@@ -28,7 +28,7 @@ void main() {
         dueDate: DueDate(value: DateTime.now()),
         paid: false,
         value: Value(value: 20.3),
-        category: BillCategory(id: 0, name: ""),
+        category: BillCategory(value: ""),
         description: my.Description(value: "teste"));
 
     when(

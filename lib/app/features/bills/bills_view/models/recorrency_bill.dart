@@ -1,9 +1,9 @@
 import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 
 class RecorrencyBill extends Bill {
-  int? limitRecorrency;
+  final int limitRecorrency;
 
-  RecorrencyBill(
+  const RecorrencyBill(
       {required super.name,
       required super.description,
       required super.dueDate,
@@ -12,7 +12,11 @@ class RecorrencyBill extends Bill {
       required super.category,
       required this.limitRecorrency});
 
-  RecorrencyBill.fromJson(super.json) : super.fromJson();
+  RecorrencyBill.fromJson(json)
+      : limitRecorrency = json["limit_recorrency"],
+        super.fromJson(json);
 
-  RecorrencyBill.empty() : super.empty();
+  RecorrencyBill.empty()
+      : limitRecorrency = 0,
+        super.empty();
 }

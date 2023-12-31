@@ -6,7 +6,8 @@ class AddFormInput extends StatelessWidget {
   final String hintText;
   final String labelText;
   final TextInputType textInputType;
-  final IconData icon;
+  final double? width;
+  final IconData? icon;
   final int? quantLine;
   final void Function(dynamic)? onChange;
   final bool? readOnly;
@@ -19,10 +20,11 @@ class AddFormInput extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.labelText,
-    required this.icon,
     required this.value,
     required this.inputType,
     required this.textInputType,
+    this.icon,
+    this.width,
     this.onChange,
     this.quantLine,
     this.readOnly,
@@ -32,47 +34,50 @@ class AddFormInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: textEditingController,
-      maxLines: quantLine,
-      onTap: () => {
-        if (inputType == InputType.date)
-          {
-            showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(1980),
-              lastDate: DateTime(2050),
-              builder: (context, child) => SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      height: 500,
-                      child: child,
-                    ),
-                  ],
+    return SizedBox(
+      width: width,
+      child: TextFormField(
+        controller: textEditingController,
+        maxLines: quantLine,
+        onTap: () => {
+          if (inputType == InputType.date)
+            {
+              showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1980),
+                lastDate: DateTime(2050),
+                builder: (context, child) => SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        height: 500,
+                        child: child,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ).then((dateTime) {
-              if (dateTime != null) {
-                textEditingController.text =
-                    dateTime.toIso8601String().substring(0, 19);
-                value.value = dateTime;
-              }
-            })
-          }
-      },
-      keyboardType: textInputType,
-      readOnly: readOnly ?? false,
-      validator: (v) => value.validate(v),
-      onChanged: onChange,
-      decoration: InputDecoration(
-        hintText: hintText,
-        icon: Icon(icon),
-        labelText: labelText,
-        alignLabelWithHint: true,
+              ).then((dateTime) {
+                if (dateTime != null) {
+                  textEditingController.text =
+                      dateTime.toIso8601String().substring(0, 19);
+                  value.value = dateTime;
+                }
+              })
+            }
+        },
+        keyboardType: textInputType,
+        readOnly: readOnly ?? false,
+        validator: (v) => value.validate(v),
+        onChanged: onChange,
+        decoration: InputDecoration(
+          hintText: hintText,
+          icon: Icon(icon),
+          labelText: labelText,
+          alignLabelWithHint: true,
+        ),
       ),
     );
   }

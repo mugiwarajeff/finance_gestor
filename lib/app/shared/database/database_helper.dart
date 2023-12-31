@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 class DatabaseHelper {
   static Future<String> get _databaseDir async => await getDatabasesPath();
   static const String _databaseName = "database.db";
-  static const int databaseVersion = 3;
+  static const int databaseVersion = 4;
   static Database? _database;
 
   DatabaseHelper._();

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/bill_category.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/due_date.dart';
 import '../bill_value_objects/name.dart';
@@ -29,7 +29,7 @@ abstract class Bill extends Equatable {
         description = Description(value: ""),
         paid = false,
         dueDate = DueDate(value: DateTime.now()),
-        category = BillCategory(id: 0, name: ""),
+        category = BillCategory.availableCategories.first,
         value = Value(value: 0);
 
   Bill.fromJson(Map<String, dynamic> json)
@@ -38,15 +38,15 @@ abstract class Bill extends Equatable {
         description = Description(value: json["description"]),
         dueDate = DueDate(
             value: DateTime.fromMillisecondsSinceEpoch(json["dueDate"])),
-        paid = json["paid"] == 1 ? true : false,
-        category = json["category"];
+        category = BillCategory(value: json["category"]),
+        paid = json["paid"] == 1 ? true : false;
 
   Map<String, dynamic> toJsonDB() => {
         "name": name.value,
         "value": value.value,
         "description": description.value,
         "dueDate": dueDate.value.millisecondsSinceEpoch,
-        "paid": paid ? 1 : 0,
-        "category": category.name
+        "category": category.value,
+        "paid": paid ? 1 : 0
       };
 }

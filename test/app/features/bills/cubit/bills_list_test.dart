@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_bloc.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/cubits/bills_list/bills_list_states.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill_category.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/bill_category.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/description.dart'
     as my;
@@ -27,7 +27,7 @@ void main() {
           name: Name(value: "teste"),
           value: Value(value: 10),
           dueDate: DueDate(value: DateTime.now()),
-          category: BillCategory(id: 0, name: ""),
+          category: BillCategory(value: ""),
           description: my.Description(value: "teste teste"),
           paid: false);
 
