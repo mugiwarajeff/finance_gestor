@@ -10,6 +10,8 @@ class ConfigurationsView extends StatelessWidget {
   final IconData lightModeIcon = Icons.light_mode;
   final IconData darkModeIcon = Icons.dark_mode;
   final IconData flagIcon = Icons.flag;
+  final IconData categorieIcon = Icons.category_outlined;
+  final IconData arrowIcon = Icons.arrow_forward;
   final double flagSize = 30;
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,8 @@ class ConfigurationsView extends StatelessWidget {
     final String appBarTitle = AppLocalizations.of(context)!.configurations;
     final String themeSwitchText = AppLocalizations.of(context)!.switchTheme;
     final String languageSwitchText = AppLocalizations.of(context)!.language;
+    final String categoriesText =
+        "Categories"; //AppLocalizations.of(context)!.category;
 
     return Scaffold(
       appBar: AppBar(title: Text(appBarTitle)),
@@ -64,6 +68,25 @@ class ConfigurationsView extends StatelessWidget {
                   ),
                 ),
               ));
+            } else {
+              return Container();
+            }
+          },
+        ),
+        BlocBuilder(
+          bloc: configurationsCubit,
+          builder: (context, state) {
+            if (state is LoadedConfigurationsState) {
+              return InkWell(
+                onTap: () => Navigator.of(context)
+                    .pushNamed("/configurations/categories"),
+                child: Card(
+                    child: ListTile(
+                  title: Text(categoriesText),
+                  leading: Icon(categorieIcon),
+                  trailing: Icon(arrowIcon),
+                )),
+              );
             } else {
               return Container();
             }

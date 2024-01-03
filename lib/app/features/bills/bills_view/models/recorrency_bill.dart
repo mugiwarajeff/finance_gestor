@@ -1,7 +1,8 @@
+import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/limite_recorrency.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
 
 class RecorrencyBill extends Bill {
-  final int limitRecorrency;
+  final LimitRecorrency limitRecorrency;
 
   const RecorrencyBill(
       {required super.name,
@@ -17,6 +18,6 @@ class RecorrencyBill extends Bill {
         super.fromJson(json);
 
   RecorrencyBill.empty()
-      : limitRecorrency = 0,
+      : limitRecorrency = LimitRecorrency(value: 0),
         super.empty();
 }

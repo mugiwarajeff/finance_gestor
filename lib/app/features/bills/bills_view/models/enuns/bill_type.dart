@@ -1,0 +1,1 @@
+enum BillType { recorrency, isolated }

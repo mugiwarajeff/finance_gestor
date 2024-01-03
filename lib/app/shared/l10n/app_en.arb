@@ -45,5 +45,9 @@
     "erroToObtain":"Error to Obtain",
     "errorToUpdate":"Error to Update",
     "billsEdit": "Bills Edit",
-    "buyMePizza": "Buy me a pizza"
+    "buyMePizza": "Buy me a pizza",
+    "fieldsAreNotValidated": "Fields are not Validated!",
+    "recorrencyLimit": "Recorrency Limit",
+    "category": "Category",
+    "selectCategory": "Select Category" 
 }

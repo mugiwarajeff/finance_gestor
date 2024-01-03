@@ -1,4 +1,5 @@
 import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/recorrency_bill.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../features/bills/bills_view/models/interfaces/bill.dart';
 
@@ -34,8 +35,13 @@ class BillsDAO {
   Future<List<Bill>> getAllBills() async {
     List<Map<String, dynamic>> billsFromDB = await database.query(_tableName);
 
-    List<Bill> billsToReturn =
-        billsFromDB.map((billJson) => IsolatedBill.fromJson(billJson)).toList();
+    List<Bill> billsToReturn = billsFromDB.map((billJson) {
+      if (billJson[_limitRecorrency] == null) {
+        return IsolatedBill.fromJson(billJson);
+      } else {
+        return RecorrencyBill.fromJson(billJson);
+      }
+    }).toList();
 
     return billsToReturn;
   }

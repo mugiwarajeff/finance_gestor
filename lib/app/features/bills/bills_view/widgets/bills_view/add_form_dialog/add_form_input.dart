@@ -11,6 +11,7 @@ class AddFormInput extends StatelessWidget {
   final int? quantLine;
   final void Function(dynamic)? onChange;
   final bool? readOnly;
+  final bool? disabled;
 
   final ValueObject value;
   final InputType inputType;
@@ -23,6 +24,7 @@ class AddFormInput extends StatelessWidget {
     required this.value,
     required this.inputType,
     required this.textInputType,
+    this.disabled,
     this.icon,
     this.width,
     this.onChange,
@@ -69,9 +71,10 @@ class AddFormInput extends StatelessWidget {
             }
         },
         keyboardType: textInputType,
-        readOnly: readOnly ?? false,
+        readOnly: readOnly == true || disabled == true ? true : false,
         validator: (v) => value.validate(v),
         onChanged: onChange,
+        enabled: !(disabled ?? false),
         decoration: InputDecoration(
           hintText: hintText,
           icon: Icon(icon),

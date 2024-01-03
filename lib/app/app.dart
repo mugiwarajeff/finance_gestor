@@ -1,3 +1,4 @@
+import 'package:finance_gestor/app/features/categories/categories_view.dart';
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_cubit.dart';
 import 'package:finance_gestor/app/features/configurations/bloc/configurations_states.dart';
 import 'package:finance_gestor/app/features/configurations/configurations_view.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
                 "/": (context) => HomeView(),
                 "/bills": (context) => const BillsView(),
                 "/dashboards": (context) => const DashboardsView(),
-                "/configurations": (context) => const ConfigurationsView()
+                "/configurations": (context) => const ConfigurationsView(),
+                "/configurations/categories": (context) => CategoriesView()
               },
               initialRoute: "/",
             );

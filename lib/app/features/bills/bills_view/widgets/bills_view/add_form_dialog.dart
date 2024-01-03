@@ -1,8 +1,9 @@
-import 'package:finance_gestor/app/features/bills/bills_view/models/bill_value_objects/bill_category.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/interfaces/bill.dart';
-import 'package:finance_gestor/app/features/bills/bills_view/models/isolated_bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/enuns/bill_type.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/models/recorrency_bill.dart';
+import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/add_form_button_segment.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/add_form_dropdown.dart';
 import 'package:finance_gestor/app/features/bills/bills_view/widgets/bills_view/add_form_dialog/input_type.dart';
+import 'package:finance_gestor/app/features/categories/cubit/categories_list_cubit.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,10 @@ class AddFormDialog extends StatelessWidget {
     addFormDialogCubit = AddFormDialogCubit(billsListCubit: billsListCubit);
   }
 
-  final Bill newBill = IsolatedBill.empty();
-
   @override
   Widget build(BuildContext context) {
+    final CategoriesListCubit categoriesListCubit =
+        BlocProvider.of<CategoriesListCubit>(context);
     final double screenSize = MediaQuery.of(context).size.height;
     final double dialogSize = screenSize * 0.7;
 
@@ -36,6 +37,13 @@ class AddFormDialog extends StatelessWidget {
     final String hintValue = AppLocalizations.of(context)!.hintValue;
     final String labelDate = "* ${AppLocalizations.of(context)!.dueDate}";
     final String hintDate = AppLocalizations.of(context)!.hintDueDate;
+    final String categoryLabel = AppLocalizations.of(context)!.category;
+    final String categoryHint = AppLocalizations.of(context)!.selectCategory;
+    final String limitRecorrencyLabel =
+        AppLocalizations.of(context)!.recorrencyLimit;
+
+    final String fieldNotValidatedAlert =
+        AppLocalizations.of(context)!.fieldsAreNotValidated;
     final String labelDescription =
         "* ${AppLocalizations.of(context)!.description}";
     final String hintDescription =
@@ -82,19 +90,19 @@ class AddFormDialog extends StatelessWidget {
                                   hintText: hintName,
                                   inputType: InputType.standard,
                                   onChange: (newName) =>
-                                      newBill.name.value = newName,
-                                  icon: Icons.abc,
+                                      state.newBill.name.value = newName,
+                                  icon: Icons.person,
                                   textInputType: TextInputType.name,
-                                  value: newBill.name),
+                                  value: state.newBill.name),
                               AddFormInput(
                                 labelText: labelValue,
                                 hintText: hintValue,
                                 inputType: InputType.standard,
                                 icon: Icons.monetization_on_outlined,
                                 textInputType: TextInputType.number,
-                                value: newBill.value,
-                                onChange: (newValue) => newBill.value.value =
-                                    double.tryParse(newValue) ?? 0,
+                                value: state.newBill.value,
+                                onChange: (newValue) => state.newBill.value
+                                    .value = double.tryParse(newValue) ?? 0,
                               ),
                               AddFormInput(
                                   labelText: labelDate,
@@ -103,42 +111,51 @@ class AddFormDialog extends StatelessWidget {
                                   icon: Icons.calendar_month,
                                   readOnly: true,
                                   textInputType: TextInputType.datetime,
-                                  value: newBill.dueDate,
-                                  onChange: (dateString) => newBill.dueDate
+                                  value: state.newBill.dueDate,
+                                  onChange: (dateString) => state
+                                      .newBill
+                                      .dueDate
                                       .value = DateTime.parse(dateString)),
                               AddFormDropdown(
-                                label: "(Categoria)",
-                                value: newBill.category,
-                                hint: "Selecione Categoria",
-                                validatedValues: BillCategory
-                                    .availableCategories
-                                    .map((e) => e.value)
+                                label: categoryLabel,
+                                value: state.newBill.category
+                                  ..value =
+                                      categoriesListCubit.categories.first,
+                                hint: categoryHint,
+                                validatedValues: categoriesListCubit.categories
+                                    .map((category) => category)
                                     .toList(),
-                                icon: Icons.abc,
-                                onChange: (selectedCategory) =>
-                                    newBill.category.value = selectedCategory,
+                                icon: Icons.category,
+                                onChange: (selectedCategory) => state
+                                    .newBill.category.value = selectedCategory,
                               ),
-                              Row(
-                                children: [
-                                  AddFormInput(
-                                      width: 100,
-                                      readOnly: newBill.category.value == "",
-                                      hintText: "(quantidade)",
-                                      labelText: "Limite Recorrencia",
-                                      value: newBill.value,
-                                      inputType: InputType.standard,
-                                      textInputType: TextInputType.number),
-                                ],
+                              AddFormButtonSegment<BillType>(
+                                selectedValue: state.billType,
+                                values: BillType.values,
+                                onChange: addFormDialogCubit.onChangeBillType,
                               ),
+                              AddFormInput(
+                                  disabled:
+                                      state.billType.first == BillType.isolated,
+                                  hintText: limitRecorrencyLabel,
+                                  labelText: limitRecorrencyLabel,
+                                  value: (state.newBill as RecorrencyBill)
+                                      .limitRecorrency,
+                                  onChange: (newLimit) =>
+                                      (state.newBill as RecorrencyBill)
+                                          .limitRecorrency
+                                          .value = int.tryParse(newLimit) ?? 0,
+                                  inputType: InputType.standard,
+                                  textInputType: TextInputType.number),
                               AddFormInput(
                                 labelText: labelDescription,
                                 hintText: hintDescription,
                                 inputType: InputType.standard,
-                                icon: Icons.abc,
+                                icon: Icons.description,
                                 textInputType: TextInputType.text,
-                                value: newBill.description,
+                                value: state.newBill.description,
                                 onChange: (text) =>
-                                    newBill.description.value = text,
+                                    state.newBill.description.value = text,
                                 quantLine: 8,
                               ),
                               Row(
@@ -150,13 +167,12 @@ class AddFormDialog extends StatelessWidget {
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            addFormDialogCubit
-                                                .confirmAddBill(newBill);
+                                            addFormDialogCubit.confirmAddBill();
                                           } else {
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  "(Fields are not Validated!)"),
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text(fieldNotValidatedAlert),
                                               backgroundColor: Colors.red,
                                             ));
                                           }

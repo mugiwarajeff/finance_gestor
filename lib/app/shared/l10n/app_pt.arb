@@ -45,5 +45,9 @@
     "erroToObtain":"Erro ao obter dados",
     "errorToUpdate":"Erro ao atualizar",
     "billsEdit": "Edição de contas",
-    "buyMePizza": "Me pague uma pizza"
+    "buyMePizza": "Me pague uma pizza",
+    "fieldsAreNotValidated": "Campos não validos!",
+    "recorrencyLimit": "Limite de Recorrencia",
+    "category": "Categoria",
+    "selectCategory": "Selecione Categoria" 
 }

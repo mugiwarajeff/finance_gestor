@@ -29,7 +29,7 @@ abstract class Bill extends Equatable {
         description = Description(value: ""),
         paid = false,
         dueDate = DueDate(value: DateTime.now()),
-        category = BillCategory.availableCategories.first,
+        category = BillCategory(value: ""),
         value = Value(value: 0);
 
   Bill.fromJson(Map<String, dynamic> json)
